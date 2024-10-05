@@ -1,10 +1,11 @@
-package com.example.sprintproject.view;
+package com.example.CS2340FAC_Team41.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.sprintproject.R;
+
+import com.example.CS2340FAC_Team41.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -17,7 +18,12 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Validate login logic here
 
+
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish(); // Optional: Close LoginActivity
             }
         });
 
@@ -25,8 +31,11 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.btn_create_account).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
+
+
     }
 }
