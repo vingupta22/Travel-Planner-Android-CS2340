@@ -1,12 +1,11 @@
-package com.example.sprintproject.view;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.CS2340FAC_Team41.view;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprintproject.R;
-import com.google.firebase.Firebase;
+import com.example.CS2340FAC_Team41.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        setContentView(com.example.sprintproject.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
         // Start button - takes user to LoginActivity
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
