@@ -19,6 +19,5 @@ public class TravelCommunityFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Initialize UI elements, load data, set up listeners here
     }
 }
