@@ -1,7 +1,6 @@
 {
   "project_info": {
     "project_number": "45372052971",
-    "firebase_url": "https://cs2340facteam41-default-rtdb.firebaseio.com",
     "project_id": "cs2340facteam41",
     "storage_bucket": "cs2340facteam41.appspot.com"
   },
@@ -11,25 +10,6 @@
         "mobilesdk_app_id": "1:45372052971:android:9b47da0582f019964975ae",
         "android_client_info": {
           "package_name": "com.example.CS2340FAC_Team41"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDCziC7XahCnflsQ-YRCh2Tui6X7q9gHPQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:45372052971:android:7253c731c7fca47c4975ae",
-        "android_client_info": {
-          "package_name": "com.example.sprintproject"
         }
       },
       "oauth_client": [],

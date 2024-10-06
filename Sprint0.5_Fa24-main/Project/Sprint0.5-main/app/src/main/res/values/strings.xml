@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">SprintProject</string>
+    <string name="app_name">CS2340FAC_Team41</string>
+    <string name="travel">Community</string>
+    <string name="accommodations">Accommodations</string>
+    <string name="logistics">Logistics</string>
+    <string name="dining">Dining</string>
+    <string name="destinations">Destinations</string>
+    <string name="transportation">Transportation</string>
 </resources>
