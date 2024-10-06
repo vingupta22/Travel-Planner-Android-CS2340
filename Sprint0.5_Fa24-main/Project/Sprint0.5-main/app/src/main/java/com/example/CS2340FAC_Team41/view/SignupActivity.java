@@ -14,13 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.CS2340FAC_Team41.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth auth;
-    private EditText signupEmail, signupPassword;
+    private EditText signupEmail;
+    private EditText signupPassword;
     private Button signupButton;
     private TextView loginRedirectText;
     @Override
@@ -44,7 +44,8 @@ public class SignupActivity extends AppCompatActivity {
                 if (pass.isEmpty()) {
                     signupEmail.setError("Password can't be empty");
                 } else {
-                    auth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    auth.createUserWithEmailAndPassword(user, pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -67,7 +68,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // Login button - goes back to LoginActivity
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
