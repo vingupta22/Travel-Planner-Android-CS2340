@@ -23,6 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText signupPassword;
     private Button signupButton;
     private TextView loginRedirectText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,24 +47,24 @@ public class SignupActivity extends AppCompatActivity {
                 } else {
                     auth.createUserWithEmailAndPassword(user, pass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(SignupActivity.this,
-                                        "Successful sign in", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(SignupActivity.this, "Signup failed"
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SignupActivity.this,
+                                                "Successful sign in", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(SignupActivity.this, "Signup failed"
                                                 + task.getException(), Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignupActivity.this,
-                                        SignupActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    });
+                                        Intent intent = new Intent(SignupActivity.this,
+                                                SignupActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
                 }
             }
         });

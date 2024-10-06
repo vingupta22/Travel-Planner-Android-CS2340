@@ -135,9 +135,9 @@ public class HomeActivity extends AppCompatActivity {
     private void resetNavItems() {
 
         LinearLayout[] navItems = {navDestinations, navLogistics, navDining, navAccommodations,
-                navTransportation, navTravel};
+            navTransportation, navTravel};
         TextView[] navLabels = {lblDestinations, lblLogistics, lblDining, lblAccommodations,
-                lblTransportation, lblTravel};
+            lblTransportation, lblTravel};
 
         for (int i = 0; i < navItems.length; i++) {
             navItems[i].setBackgroundColor(getResources().getColor(R.color.white));
