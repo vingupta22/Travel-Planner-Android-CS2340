@@ -1,14 +1,14 @@
-#Sun Oct 06 18:41:30 EDT 2024
-base.0=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-base.1=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.2=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
-base.3=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
-base.4=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+#Sun Oct 06 18:09:17 EDT 2024
+base.0=/Users/vinay/Desktop/Computer_Science_Projects/georgia_tech/CS_2340/android_final/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/vinay/Desktop/Computer_Science_Projects/georgia_tech/CS_2340/android_final/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.2=/Users/vinay/Desktop/Computer_Science_Projects/georgia_tech/CS_2340/android_final/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
+base.3=/Users/vinay/Desktop/Computer_Science_Projects/georgia_tech/CS_2340/android_final/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+base.4=/Users/vinay/Desktop/Computer_Science_Projects/georgia_tech/CS_2340/android_final/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=4/classes.dex
-path.3=5/classes.dex
-path.4=classes2.dex
+path.3=classes2.dex
+path.4=5/classes.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex
