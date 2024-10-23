@@ -1,18 +1,18 @@
-#Tue Oct 22 17:11:24 EDT 2024
-base.0=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex
-base.3=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
-base.4=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\5\\classes.dex
-base.5=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.6=C\:\\Users\\anish\\Downloads\\gatech\\2340\\cs230_10_19_newsync\\CS2340FAC_Team41\\Sprint0.5_Fa24-main\\Project\\Sprint0.5-main\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
+#Wed Oct 23 12:30:44 EDT 2024
+base.0=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.2=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/11/classes.dex
+base.3=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
+base.4=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
+base.5=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/6/classes.dex
+base.6=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=11/classes.dex
 path.3=4/classes.dex
 path.4=5/classes.dex
-path.5=classes2.dex
-path.6=6/classes.dex
+path.5=6/classes.dex
+path.6=classes2.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex
