@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -36,25 +38,31 @@ public class SignupActivity extends AppCompatActivity {
         findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = signupEmail.getText().toString().trim();
-                user += "@gmail.com";
+                String usernN = signupEmail.getText().toString().trim();
+                usernN += "@gmail.com";
                 String pass = signupPassword.getText().toString().trim();
-                if (user.isEmpty()) {
+                if (usernN.isEmpty()) {
                     signupEmail.setError("Email can't be empty");
                 }
                 if (pass.isEmpty()) {
                     signupEmail.setError("Password can't be empty");
                 } else {
-                    auth.createUserWithEmailAndPassword(user, pass)
+                    String finalUsernN = usernN;
+                    auth.createUserWithEmailAndPassword(usernN, pass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SignupActivity.this,
                                                 "Successful sign in", Toast.LENGTH_SHORT).show();
+                                        //Sprint 2 changes:
+                                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        model.User user = new model.User(finalUsernN);
+                                        mDatabase.child("users").child(finalUsernN).setValue(user);
                                         Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                                         startActivity(intent);
                                         finish();
+                                        //end Sprint2 changes
                                     } else {
                                         Toast.makeText(SignupActivity.this, "Signup failed"
                                                 + task.getException(), Toast.LENGTH_SHORT).show();
