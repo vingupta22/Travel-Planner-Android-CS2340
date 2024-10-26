@@ -9,18 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import com.example.CS2340FAC_Team41.R;
-import com.example.CS2340FAC_Team41.databinding.ActivityMainBinding;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,7 +20,7 @@ public class DestinationsFragment extends Fragment {
     private LinearLayout travelForm, vacationForm;
     private Button logTravelButton, calculateVacationButton, cancelButton, submitButton, calculateButton;
     private EditText inputLocation, inputStartTime, inputEndTime, inputStartDate, inputEndDate, inputDuration;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +31,8 @@ public class DestinationsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize UI components
+        mDatabase = FirebaseDatabase.getInstance().getReference("destinations");
+
         travelForm = view.findViewById(R.id.travel_form);
         vacationForm = view.findViewById(R.id.vacation_form);
         logTravelButton = view.findViewById(R.id.btn_log_travel);
@@ -56,26 +48,22 @@ public class DestinationsFragment extends Fragment {
         inputEndDate = view.findViewById(R.id.input_end_date);
         inputDuration = view.findViewById(R.id.input_duration);
 
-        // Log Travel button opens the Travel Form
         logTravelButton.setOnClickListener(v -> {
             travelForm.setVisibility(View.VISIBLE);
             vacationForm.setVisibility(View.GONE);
         });
 
-        // Calculate Vacation Time button opens the Vacation Form
         calculateVacationButton.setOnClickListener(v -> {
             vacationForm.setVisibility(View.VISIBLE);
             travelForm.setVisibility(View.GONE);
         });
 
-        // Cancel button hides both forms
         cancelButton.setOnClickListener(v -> {
             travelForm.setVisibility(View.GONE);
             vacationForm.setVisibility(View.GONE);
             clearInputs();
         });
 
-        // Submit button logic
         submitButton.setOnClickListener(v -> {
             String location = inputLocation.getText().toString();
             String startTime = inputStartTime.getText().toString();
@@ -84,14 +72,18 @@ public class DestinationsFragment extends Fragment {
             if (location.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
                 Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
+                // Store travel data in Firebase
+                saveTravelData(location, startTime, endTime);
                 Toast.makeText(getActivity(), "Travel Logged!", Toast.LENGTH_SHORT).show();
                 travelForm.setVisibility(View.GONE);
                 clearInputs();
             }
         });
 
-        // Calculate button logic for vacation time
-        calculateButton.setOnClickListener(v -> calculateVacationTime());
+        calculateButton.setOnClickListener(v -> {
+            calculateVacationTime();
+            saveVacationData();
+        });
     }
 
     private void clearInputs() {
@@ -112,7 +104,6 @@ public class DestinationsFragment extends Fragment {
 
         try {
             if (!startDateStr.isEmpty() && !endDateStr.isEmpty()) {
-                // Calculate the duration between the two dates
                 Date startDate = sdf.parse(startDateStr);
                 Date endDate = sdf.parse(endDateStr);
 
@@ -122,7 +113,6 @@ public class DestinationsFragment extends Fragment {
                 inputDuration.setText(String.valueOf(days));
                 Toast.makeText(getActivity(), "Duration calculated!", Toast.LENGTH_SHORT).show();
             } else if (!startDateStr.isEmpty() && !durationStr.isEmpty()) {
-                // Calculate the end date based on start date and duration
                 Date startDate = sdf.parse(startDateStr);
                 long durationInMillis = Long.parseLong(durationStr) * 24 * 60 * 60 * 1000;
 
@@ -130,7 +120,6 @@ public class DestinationsFragment extends Fragment {
                 inputEndDate.setText(sdf.format(endDate));
                 Toast.makeText(getActivity(), "End date calculated!", Toast.LENGTH_SHORT).show();
             } else if (!endDateStr.isEmpty() && !durationStr.isEmpty()) {
-                // Calculate the start date based on end date and duration
                 Date endDate = sdf.parse(endDateStr);
                 long durationInMillis = Long.parseLong(durationStr) * 24 * 60 * 60 * 1000;
 
@@ -142,6 +131,46 @@ public class DestinationsFragment extends Fragment {
             }
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Invalid input! Please use yyyy-MM-dd format for dates.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveTravelData(String location, String startTime, String endTime) {
+        String key = mDatabase.push().getKey();
+        Map<String, String> travelData = new HashMap<>();
+        travelData.put("location", location);
+        travelData.put("startTime", startTime);
+        travelData.put("endTime", endTime);
+
+        mDatabase.child("travelLogs").child(key).setValue(travelData)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Travel data saved!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Failed to save data.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void saveVacationData() {
+        String startDate = inputStartDate.getText().toString();
+        String endDate = inputEndDate.getText().toString();
+        String duration = inputDuration.getText().toString();
+
+        if (!startDate.isEmpty() || !endDate.isEmpty() || !duration.isEmpty()) {
+            String key = mDatabase.push().getKey();
+            Map<String, String> vacationData = new HashMap<>();
+            vacationData.put("startDate", startDate);
+            vacationData.put("endDate", endDate);
+            vacationData.put("duration", duration);
+
+            mDatabase.child("vacationLogs").child(key).setValue(vacationData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Vacation data saved!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to save vacation data.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 }
