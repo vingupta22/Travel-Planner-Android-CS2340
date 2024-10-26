@@ -12,7 +12,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"
-        android:visibility="visible" />
+        android:layout_gravity="center_horizontal" />
 
     <!-- Log Travel Button -->
     <Button
@@ -25,7 +25,18 @@
         android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal" />
 
-    <!-- Travel Input Form (Initially Hidden) -->
+    <!-- Calculate Vacation Time Button -->
+    <Button
+        android:id="@+id/btn_calculate_vacation_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Vacation Time"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Log Travel Form (Initially Hidden) -->
     <LinearLayout
         android:id="@+id/travel_form"
         android:layout_width="match_parent"
@@ -46,14 +57,14 @@
             android:id="@+id/input_start_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Estimated Start Time"
+            android:hint="Start Time"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/input_end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Estimated End Time"
+            android:hint="End Time"
             android:layout_marginBottom="16dp" />
 
         <!-- Buttons for Submit and Cancel -->
@@ -78,7 +89,47 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ListView for Dining -->
+    <!-- Vacation Time Calculation Form (Initially Hidden) -->
+    <LinearLayout
+        android:id="@+id/vacation_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="8dp"
+        android:background="@android:color/darker_gray">
+
+        <EditText
+            android:id="@+id/input_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Start Date (yyyy-MM-dd)"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/input_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="End Date (yyyy-MM-dd)"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/input_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Duration (days)"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Calculate Button -->
+        <Button
+            android:id="@+id/btn_calculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calculate"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <!-- ListView for Travel Logs -->
     <ListView
         android:id="@+id/recycler_view_dining"
         android:layout_width="match_parent"
