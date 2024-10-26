@@ -15,12 +15,15 @@ import com.example.CS2340FAC_Team41.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class DestinationsFragment extends Fragment {
 
     private LinearLayout travelForm, vacationForm;
     private Button logTravelButton, calculateVacationButton, cancelButton, submitButton, calculateButton;
     private EditText inputLocation, inputStartTime, inputEndTime, inputStartDate, inputEndDate, inputDuration;
     private DatabaseReference mDatabase;
+    private String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +34,8 @@ public class DestinationsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("destinations");
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Get current user's ID
+        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
         travelForm = view.findViewById(R.id.travel_form);
         vacationForm = view.findViewById(R.id.vacation_form);
@@ -135,7 +139,7 @@ public class DestinationsFragment extends Fragment {
     }
 
     private void saveTravelData(String location, String startTime, String endTime) {
-        String key = mDatabase.push().getKey();
+        String key = mDatabase.child("travelLogs").push().getKey();
         Map<String, String> travelData = new HashMap<>();
         travelData.put("location", location);
         travelData.put("startTime", startTime);
@@ -157,7 +161,7 @@ public class DestinationsFragment extends Fragment {
         String duration = inputDuration.getText().toString();
 
         if (!startDate.isEmpty() || !endDate.isEmpty() || !duration.isEmpty()) {
-            String key = mDatabase.push().getKey();
+            String key = mDatabase.child("vacationLogs").push().getKey();
             Map<String, String> vacationData = new HashMap<>();
             vacationData.put("startDate", startDate);
             vacationData.put("endDate", endDate);
