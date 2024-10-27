@@ -57,14 +57,14 @@
             android:id="@+id/input_start_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Start Time (YYYY-MM-DD)"
+            android:hint="Start Time"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/input_end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="End Time (YYYY-MM-DD)"
+            android:hint="End Time"
             android:layout_marginBottom="16dp" />
 
         <!-- Buttons for Submit and Cancel -->
@@ -103,14 +103,14 @@
             android:id="@+id/input_start_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Start Date (YYYY-MM-DD)"
+            android:hint="Start Date (yyyy-MM-dd)"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/input_end_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="End Date (YYYY-MM-DD)"
+            android:hint="End Date (yyyy-MM-dd)"
             android:layout_marginBottom="8dp" />
 
         <EditText
@@ -128,6 +128,16 @@
             android:text="Calculate"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
+
+    <!-- Destinations Section -->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/vacation_form"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/listView"/>
+
 
     <!-- ListView for Travel Logs -->
     <ListView
