@@ -57,14 +57,14 @@
             android:id="@+id/input_start_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Start Time"
+            android:hint="Start Time (YYYY-MM-DD)"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/input_end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="End Time"
+            android:hint="End Time (YYYY-MM-DD)"
             android:layout_marginBottom="16dp" />
 
         <!-- Buttons for Submit and Cancel -->
@@ -103,14 +103,14 @@
             android:id="@+id/input_start_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Start Date (yyyy-MM-dd)"
+            android:hint="Start Date (YYYY-MM-DD)"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/input_end_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="End Date (yyyy-MM-dd)"
+            android:hint="End Date (YYYY-MM-DD)"
             android:layout_marginBottom="8dp" />
 
         <EditText
