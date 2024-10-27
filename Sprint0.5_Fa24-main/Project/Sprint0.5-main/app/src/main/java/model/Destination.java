@@ -1,33 +1,36 @@
 package model;
-
 public class Destination {
-/*
-    private String location;
-    private long daysPlanned;
+    // The single instance of the class
+    private static Destination instance;
 
-    // Default constructor required for calls to DataSnapshot.getValue(Destination.class)
-    public Destination() {
+    // Private constructor to prevent instantiation from other classes
+    private Destination() {
     }
 
-    public Destination(String location, long daysPlanned) {
-        this.location = location;
-        this.daysPlanned = daysPlanned;
+    // Public static method to provide access to the single instance
+    public static synchronized Destination getInstance() {
+        if (instance == null) {
+            instance = new Destination();
+        }
+        return instance;
     }
 
-    public String getLocation() {
-        return location;
+    private String name;
+    private int daysPlanned;
+
+    public String getName() {
+        return name;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public long getDaysPlanned() {
+    public int getDaysPlanned() {
         return daysPlanned;
     }
 
-    public void setDaysPlanned(long daysPlanned) {
+    public void setDaysPlanned(int daysPlanned) {
         this.daysPlanned = daysPlanned;
-    }*/
+    }
 }
-
