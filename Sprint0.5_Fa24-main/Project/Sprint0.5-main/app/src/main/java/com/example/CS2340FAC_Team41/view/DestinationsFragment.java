@@ -2,25 +2,36 @@ package com.example.CS2340FAC_Team41.view;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.fragment.app.Fragment;
+
 import com.example.CS2340FAC_Team41.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ValueEventListener;
 
 public class DestinationsFragment extends Fragment {
 
@@ -29,9 +40,8 @@ public class DestinationsFragment extends Fragment {
     private EditText inputLocation, inputStartTime, inputEndTime, inputStartDate, inputEndDate, inputDuration;
     private DatabaseReference mDatabase;
     private String userId;
-    private RecyclerView recyclerView;
-    private DestinationsAdapter destinationsAdapter;
-    private List<Map<String, String>> travelLogs = new ArrayList<>();
+    private ListView listView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,14 +51,6 @@ public class DestinationsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        recyclerView = view.findViewById(R.id.recycler_view_destinations);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        destinationsAdapter = new DestinationsAdapter(travelLogs);
-        recyclerView.setAdapter(destinationsAdapter);
-
-        fetchTravelLogs();
 
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Get current user's ID
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userId);
@@ -104,6 +106,76 @@ public class DestinationsFragment extends Fragment {
             calculateVacationTime();
             saveVacationData();
         });
+
+        listView = view.findViewById(R.id.listView);
+        ArrayList<String> list = new ArrayList<>();
+        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, list);
+        listView.setAdapter(adapter);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("travelLogs");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    TravelLogGet info = snapshot.getValue(TravelLogGet.class);
+                    assert info != null;
+                    String eT = info.getEndTime();
+                    String sT = info.getStartTime();
+                    String loc = info.getLocation();
+
+
+                    String startDateStr = info.getStartTime();
+                    String endDateStr = info.getEndTime();
+                    String durationStr = inputDuration.getText().toString();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    long days = 0;
+                    try {
+                        if (!startDateStr.isEmpty() && !endDateStr.isEmpty()) {
+                            Date startDate = sdf.parse(startDateStr);
+                            Date endDate = sdf.parse(endDateStr);
+
+                            long diffInMillis = Math.abs(endDate.getTime() - startDate.getTime());
+                            days = diffInMillis / (1000 * 60 * 60 * 24);
+
+                            inputDuration.setText(String.valueOf(days));
+                            Toast.makeText(getActivity(), "Duration calculated!", Toast.LENGTH_SHORT).show();
+                        } else if (!startDateStr.isEmpty() && !durationStr.isEmpty()) {
+                            Date startDate = sdf.parse(startDateStr);
+                            long durationInMillis = Long.parseLong(durationStr) * 24 * 60 * 60 * 1000;
+
+                            Date endDate = new Date(startDate.getTime() + durationInMillis);
+                            inputEndDate.setText(sdf.format(endDate));
+                            Toast.makeText(getActivity(), "End date calculated!", Toast.LENGTH_SHORT).show();
+                        } else if (!endDateStr.isEmpty() && !durationStr.isEmpty()) {
+                            Date endDate = sdf.parse(endDateStr);
+                            long durationInMillis = Long.parseLong(durationStr) * 24 * 60 * 60 * 1000;
+
+                            Date startDate = new Date(endDate.getTime() - durationInMillis);
+                            inputStartDate.setText(sdf.format(startDate));
+                            Toast.makeText(getActivity(), "Start date calculated!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Please fill in at least two fields!", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "Invalid input! Please use yyyy-MM-dd format for dates.", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+                    String ds = "" + days;
+                    list.add(loc + "\t\t\t" + ds + " days planned");
+
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void clearInputs() {
@@ -113,39 +185,6 @@ public class DestinationsFragment extends Fragment {
         inputStartDate.setText("");
         inputEndDate.setText("");
         inputDuration.setText("");
-    }
-
-    private void fetchTravelLogs() {
-        mDatabase.child("travelLogs").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                travelLogs.clear();
-                for (DataSnapshot logSnapshot : snapshot.getChildren()) {
-                    Map<String, String> log = (Map<String, String>) logSnapshot.getValue();
-                    calculateDays(log);  // Calculate days for each log
-                    travelLogs.add(log);
-                }
-                destinationsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Failed to fetch travel logs.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void calculateDays(Map<String, String> log) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Date startDate = sdf.parse(log.get("startTime"));
-            Date endDate = sdf.parse(log.get("endTime"));
-            long diffInMillis = Math.abs(endDate.getTime() - startDate.getTime());
-            long days = diffInMillis / (1000 * 60 * 60 * 24);
-            log.put("days", String.valueOf(days));
-        } catch (Exception e) {
-            log.put("days", "N/A");
-        }
     }
 
     private void calculateVacationTime() {
@@ -227,3 +266,4 @@ public class DestinationsFragment extends Fragment {
         }
     }
 }
+

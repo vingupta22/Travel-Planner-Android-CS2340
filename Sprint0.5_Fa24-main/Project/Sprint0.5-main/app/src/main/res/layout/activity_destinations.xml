@@ -4,15 +4,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_destinations"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
-
     <!-- Header TextView -->
     <TextView
         android:layout_width="wrap_content"
@@ -137,6 +128,16 @@
             android:text="Calculate"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
+
+    <!-- Destinations Section -->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/vacation_form"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/listView"/>
+
 
     <!-- ListView for Travel Logs -->
     <ListView

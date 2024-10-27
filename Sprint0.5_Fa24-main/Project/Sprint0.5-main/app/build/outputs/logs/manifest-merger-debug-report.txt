@@ -10,7 +10,6 @@ MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\anish\.g
 MERGED from [androidx.appcompat:appcompat-resources:1.7.0] C:\Users\anish\.gradle\caches\transforms-4\5ec1d13f2440a226b430737773c5eceb\transformed\appcompat-resources-1.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.appcompat:appcompat:1.7.0] C:\Users\anish\.gradle\caches\transforms-4\17dcc6489b69ef594f5e4b612e338e6e\transformed\appcompat-1.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.firebase:firebase-auth:23.0.0] C:\Users\anish\.gradle\caches\transforms-4\c2dcb2872c9ce4c93476ad82caad228b\transformed\firebase-auth-23.0.0\AndroidManifest.xml:17:1-75:12
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\b34f469a0b72d7bdb21853d9df1cfa19\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-database:21.0.0] C:\Users\anish\.gradle\caches\transforms-4\c61a2c9763073d782bb8108c1529c047\transformed\firebase-database-21.0.0\AndroidManifest.xml:15:1-38:12
 MERGED from [androidx.credentials:credentials:1.2.0-rc01] C:\Users\anish\.gradle\caches\transforms-4\780cf4bb22c3d69e3e7f80212b40721f\transformed\credentials-1.2.0-rc01\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\anish\.gradle\caches\transforms-4\a91bfb3b87b3eb3d5d31825fbaba6a65\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:17:1-44:12
@@ -26,6 +25,9 @@ MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\a
 MERGED from [com.google.android.gms:play-services-fido:20.1.0] C:\Users\anish\.gradle\caches\transforms-4\60f0de511b5258746ed42f127c787e9b\transformed\play-services-fido-20.1.0\AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] C:\Users\anish\.gradle\caches\transforms-4\37920a3c6b39185e4ea06ec4088488e1\transformed\play-services-auth-base-18.0.4\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\anish\.gradle\caches\transforms-4\2f294b928994c4fd9f5aee914b948b42\transformed\play-services-base-18.1.0\AndroidManifest.xml:16:1-24:12
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] C:\Users\anish\.gradle\caches\transforms-4\2cccfde52cbe23576b9531ec1bd58f85\transformed\viewpager2-1.1.0-beta02\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.recyclerview:recyclerview:1.3.1] C:\Users\anish\.gradle\caches\transforms-4\cd11af4204af9f40ace59dc1634e5ab5\transformed\recyclerview-1.3.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\a112a0203e1fbfa04b7e0e78d69bdb39\transformed\customview-poolingcontainer-1.0.0\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\anish\.gradle\caches\transforms-4\ead147d7016d02cac45dee6faaf953ee\transformed\core-ktx-1.13.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] C:\Users\anish\.gradle\caches\transforms-4\59b54b035bd613ae6f4740c794c15591\transformed\emoji2-views-helper-1.3.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.3.0] C:\Users\anish\.gradle\caches\transforms-4\1bc08297bbfcd630722e8c8352c6fe56\transformed\emoji2-1.3.0\AndroidManifest.xml:17:1-35:12
@@ -39,7 +41,6 @@ MERGED from [androidx.browser:browser:1.4.0] C:\Users\anish\.gradle\caches\trans
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\e7bb19957f99be74e81a2cffd7bec5df\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\b3856f41410dd499124b230cbffa7b97\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\6fc051a2061f4e388a751a187d8f66cb\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\anish\.gradle\caches\transforms-4\28b1164c39e85470735be00a6ab6c8ce\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\anish\.gradle\caches\transforms-4\6b28c66387398c44da2f96f232552462\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.core:core:1.13.1] C:\Users\anish\.gradle\caches\transforms-4\7aa1be909e3e98c042345e7597e68176\transformed\core-1.13.1\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.2] C:\Users\anish\.gradle\caches\transforms-4\f4923c19264de13272f8611d8de4075f\transformed\lifecycle-viewmodel-2.6.2\AndroidManifest.xml:17:1-22:12
@@ -188,8 +189,6 @@ MERGED from [androidx.appcompat:appcompat:1.7.0] C:\Users\anish\.gradle\caches\t
 MERGED from [androidx.appcompat:appcompat:1.7.0] C:\Users\anish\.gradle\caches\transforms-4\17dcc6489b69ef594f5e4b612e338e6e\transformed\appcompat-1.7.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth:23.0.0] C:\Users\anish\.gradle\caches\transforms-4\c2dcb2872c9ce4c93476ad82caad228b\transformed\firebase-auth-23.0.0\AndroidManifest.xml:21:5-23:151
 MERGED from [com.google.firebase:firebase-auth:23.0.0] C:\Users\anish\.gradle\caches\transforms-4\c2dcb2872c9ce4c93476ad82caad228b\transformed\firebase-auth-23.0.0\AndroidManifest.xml:21:5-23:151
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\b34f469a0b72d7bdb21853d9df1cfa19\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\b34f469a0b72d7bdb21853d9df1cfa19\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-database:21.0.0] C:\Users\anish\.gradle\caches\transforms-4\c61a2c9763073d782bb8108c1529c047\transformed\firebase-database-21.0.0\AndroidManifest.xml:18:5-44
 MERGED from [com.google.firebase:firebase-database:21.0.0] C:\Users\anish\.gradle\caches\transforms-4\c61a2c9763073d782bb8108c1529c047\transformed\firebase-database-21.0.0\AndroidManifest.xml:18:5-44
 MERGED from [androidx.credentials:credentials:1.2.0-rc01] C:\Users\anish\.gradle\caches\transforms-4\780cf4bb22c3d69e3e7f80212b40721f\transformed\credentials-1.2.0-rc01\AndroidManifest.xml:5:5-44
@@ -220,6 +219,12 @@ MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] C:\Users\ani
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] C:\Users\anish\.gradle\caches\transforms-4\37920a3c6b39185e4ea06ec4088488e1\transformed\play-services-auth-base-18.0.4\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\anish\.gradle\caches\transforms-4\2f294b928994c4fd9f5aee914b948b42\transformed\play-services-base-18.1.0\AndroidManifest.xml:18:5-43
 MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\anish\.gradle\caches\transforms-4\2f294b928994c4fd9f5aee914b948b42\transformed\play-services-base-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] C:\Users\anish\.gradle\caches\transforms-4\2cccfde52cbe23576b9531ec1bd58f85\transformed\viewpager2-1.1.0-beta02\AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] C:\Users\anish\.gradle\caches\transforms-4\2cccfde52cbe23576b9531ec1bd58f85\transformed\viewpager2-1.1.0-beta02\AndroidManifest.xml:5:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.1] C:\Users\anish\.gradle\caches\transforms-4\cd11af4204af9f40ace59dc1634e5ab5\transformed\recyclerview-1.3.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.1] C:\Users\anish\.gradle\caches\transforms-4\cd11af4204af9f40ace59dc1634e5ab5\transformed\recyclerview-1.3.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\a112a0203e1fbfa04b7e0e78d69bdb39\transformed\customview-poolingcontainer-1.0.0\AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\a112a0203e1fbfa04b7e0e78d69bdb39\transformed\customview-poolingcontainer-1.0.0\AndroidManifest.xml:20:5-21:38
 MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\anish\.gradle\caches\transforms-4\ead147d7016d02cac45dee6faaf953ee\transformed\core-ktx-1.13.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\anish\.gradle\caches\transforms-4\ead147d7016d02cac45dee6faaf953ee\transformed\core-ktx-1.13.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] C:\Users\anish\.gradle\caches\transforms-4\59b54b035bd613ae6f4740c794c15591\transformed\emoji2-views-helper-1.3.0\AndroidManifest.xml:5:5-44
@@ -246,8 +251,6 @@ MERGED from [androidx.loader:loader:1.0.0] C:\Users\anish\.gradle\caches\transfo
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\b3856f41410dd499124b230cbffa7b97\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\6fc051a2061f4e388a751a187d8f66cb\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\anish\.gradle\caches\transforms-4\6fc051a2061f4e388a751a187d8f66cb\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\anish\.gradle\caches\transforms-4\28b1164c39e85470735be00a6ab6c8ce\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\anish\.gradle\caches\transforms-4\28b1164c39e85470735be00a6ab6c8ce\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\anish\.gradle\caches\transforms-4\6b28c66387398c44da2f96f232552462\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\anish\.gradle\caches\transforms-4\6b28c66387398c44da2f96f232552462\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.core:core:1.13.1] C:\Users\anish\.gradle\caches\transforms-4\7aa1be909e3e98c042345e7597e68176\transformed\core-1.13.1\AndroidManifest.xml:20:5-44
