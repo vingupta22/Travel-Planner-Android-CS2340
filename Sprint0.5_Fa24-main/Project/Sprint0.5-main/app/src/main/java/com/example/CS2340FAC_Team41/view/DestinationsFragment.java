@@ -14,6 +14,11 @@ import androidx.fragment.app.Fragment;
 import com.example.CS2340FAC_Team41.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,6 +29,9 @@ public class DestinationsFragment extends Fragment {
     private EditText inputLocation, inputStartTime, inputEndTime, inputStartDate, inputEndDate, inputDuration;
     private DatabaseReference mDatabase;
     private String userId;
+    private RecyclerView recyclerView;
+    private DestinationsAdapter destinationsAdapter;
+    private List<Map<String, String>> travelLogs = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +41,14 @@ public class DestinationsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.recycler_view_destinations);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        destinationsAdapter = new DestinationsAdapter(travelLogs);
+        recyclerView.setAdapter(destinationsAdapter);
+
+        fetchTravelLogs();
 
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Get current user's ID
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userId);
@@ -97,6 +113,39 @@ public class DestinationsFragment extends Fragment {
         inputStartDate.setText("");
         inputEndDate.setText("");
         inputDuration.setText("");
+    }
+
+    private void fetchTravelLogs() {
+        mDatabase.child("travelLogs").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                travelLogs.clear();
+                for (DataSnapshot logSnapshot : snapshot.getChildren()) {
+                    Map<String, String> log = (Map<String, String>) logSnapshot.getValue();
+                    calculateDays(log);  // Calculate days for each log
+                    travelLogs.add(log);
+                }
+                destinationsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Failed to fetch travel logs.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void calculateDays(Map<String, String> log) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date startDate = sdf.parse(log.get("startTime"));
+            Date endDate = sdf.parse(log.get("endTime"));
+            long diffInMillis = Math.abs(endDate.getTime() - startDate.getTime());
+            long days = diffInMillis / (1000 * 60 * 60 * 24);
+            log.put("days", String.valueOf(days));
+        } catch (Exception e) {
+            log.put("days", "N/A");
+        }
     }
 
     private void calculateVacationTime() {
