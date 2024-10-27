@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header TextView -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logistics"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Total Days TextView -->
+    <TextView
+        android:id="@+id/tv_total_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Days: 0"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- PieChart for Visualization -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Visualize Trip Days Button -->
+    <Button
+        android:id="@+id/btn_visualize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visualize Trip Days"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Invite Users Button -->
+    <Button
+        android:id="@+id/btn_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite Users"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Add Note Button -->
+    <Button
+        android:id="@+id/btn_add_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Note"
+        android:layout_marginBottom="16dp" />
+
+    <!-- ListView for Contributors -->
+    <ListView
+        android:id="@+id/list_contributors"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
