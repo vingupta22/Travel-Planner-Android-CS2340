@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.edit_username);
         loginPassword = findViewById(R.id.edit_password);
         loginButton = findViewById(R.id.btn_login);
-        // Login button - takes user to HomeActivity after successful login
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
