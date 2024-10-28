@@ -115,12 +115,16 @@ public class DestinationsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
+                long children = dataSnapshot.getChildrenCount();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TravelLogGet info = snapshot.getValue(TravelLogGet.class);
                     assert info != null;
                     String loc = info.getLocation();
                     long days = calculateDuration(info.getStartTime(), info.getEndTime());
-                    list.add(loc + "\t\t\t" + days + " days planned");
+                    if (children <= 5) {
+                        list.add(loc + "\t\t\t" + days + " days planned");
+                    }
+                    children--;
                 }
                 adapter.notifyDataSetChanged();
             }
