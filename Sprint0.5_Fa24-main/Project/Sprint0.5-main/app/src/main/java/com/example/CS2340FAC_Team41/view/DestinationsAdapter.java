@@ -14,6 +14,10 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
 
     private final List<Map<String, String>> travelLogs;
 
+    /**
+     * Travel log constrcutor
+     * @param travelLogs the logs for travel
+     */
     public DestinationsAdapter(List<Map<String, String>> travelLogs) {
         this.travelLogs = travelLogs;
     }
@@ -39,8 +43,13 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
     }
 
     static class DestinationViewHolder extends RecyclerView.ViewHolder {
-        TextView locationTextView, daysTextView;
+        private TextView locationTextView;
+        private TextView daysTextView;
 
+        /**
+         * Sets the Destination View Holder constructor
+         * @param itemView the passed in itemview
+         */
         public DestinationViewHolder(@NonNull View itemView) {
             super(itemView);
             locationTextView = itemView.findViewById(R.id.location_text);
