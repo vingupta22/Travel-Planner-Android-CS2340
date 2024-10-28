@@ -73,7 +73,6 @@ public class LogisticsFragment extends Fragment {
         vacationLogsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Fetch allotted days from the "duration" field
                 for (DataSnapshot log : snapshot.getChildren()) {
                     String durationStr = log.child("duration").getValue(String.class);
                     if (durationStr != null && !durationStr.isEmpty()) {
@@ -81,7 +80,6 @@ public class LogisticsFragment extends Fragment {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "Failed to load allotted days", Toast.LENGTH_SHORT).show();

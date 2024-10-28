@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        // Quit button - closes the app
         findViewById(R.id.btn_quit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

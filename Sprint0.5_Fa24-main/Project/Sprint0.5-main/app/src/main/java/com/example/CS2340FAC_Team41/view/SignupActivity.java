@@ -34,7 +34,6 @@ public class SignupActivity extends AppCompatActivity {
         signupEmail = findViewById(R.id.edit_username);
         signupPassword = findViewById(R.id.edit_password);
         signupButton = findViewById(R.id.btn_register);
-        // Register button - creates new account and goes to HomeActivity
         findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,14 +54,12 @@ public class SignupActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SignupActivity.this,
                                                 "Successful sign in", Toast.LENGTH_SHORT).show();
-                                        //Sprint 2 changes:
                                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                                         model.User user = new model.User(finalUsernN);
                                         mDatabase.child("users").child(finalUsernN).setValue(user);
                                         Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                                         startActivity(intent);
                                         finish();
-                                        //end Sprint2 changes
                                     } else {
                                         Toast.makeText(SignupActivity.this, "Signup failed"
                                                 + task.getException(), Toast.LENGTH_SHORT).show();
