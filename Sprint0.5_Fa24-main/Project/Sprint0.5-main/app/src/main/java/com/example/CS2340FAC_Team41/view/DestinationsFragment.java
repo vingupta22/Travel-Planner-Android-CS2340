@@ -1,9 +1,12 @@
 package com.example.CS2340FAC_Team41.view;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.regex.Pattern;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Locale;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +33,19 @@ public class DestinationsFragment extends Fragment {
 
     private static final Pattern DATE_PATTERN = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
 
-    private LinearLayout travelForm, vacationForm;
-    private Button logTravelButton, calculateVacationButton, cancelButton, submitButton, calculateButton;
-    private EditText inputLocation, inputStartTime, inputEndTime, inputStartDate, inputEndDate, inputDuration;
+    private LinearLayout travelForm;
+    private LinearLayout vacationForm;
+    private Button logTravelButton;
+    private Button calculateVacationButton;
+    private Button cancelButton;
+    private Button submitButton;
+    private Button calculateButton;
+    private EditText inputLocation;
+    private EditText inputStartTime;
+    private EditText inputEndTime;
+    private EditText inputStartDate;
+    private EditText inputEndDate;
+    private EditText inputDuration;
     private DatabaseReference mDatabase;
     private String userId;
     private ListView listView;
@@ -85,18 +98,19 @@ public class DestinationsFragment extends Fragment {
             String startTime = inputStartTime.getText().toString().trim();
             String endTime = inputEndTime.getText().toString().trim();
 
-            if(location.length()==0){
-                location="Location";
+            if (location.length() == 0) {
+                location = "Location";
             }
-            if(startTime.length()==0){
-                startTime="2024-02-02";
+            if (startTime.length() == 0) {
+                startTime = "2024-02-02";
             }
-            if(endTime.length()==0){
-                endTime="2024-02-02";
+            if (endTime.length() == 0) {
+                endTime = "2024-02-02";
             }
 
             if (location.isEmpty() || !isValidDate(startTime) || !isValidDate(endTime)) {
-                Toast.makeText(getActivity(), "Please enter valid data in YYYY-MM-DD format.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Please enter valid data in YYYY-MM-DD format.",
+                        Toast.LENGTH_SHORT).show();
             } else {
                 saveTravelData(location, startTime, endTime);
                 Toast.makeText(getActivity(), "Travel Logged!", Toast.LENGTH_SHORT).show();
@@ -106,7 +120,8 @@ public class DestinationsFragment extends Fragment {
         });
 
         calculateButton.setOnClickListener(v -> {
-            if (isValidDate(inputStartDate.getText().toString().trim()) &&
+            if (isValidDate(inputStartDate.getText().toString().trim())
+                    &&
                     isValidDate(inputEndDate.getText().toString().trim())) {
                 calculateVacationTime();
                 saveVacationData();
@@ -146,10 +161,21 @@ public class DestinationsFragment extends Fragment {
         });
     }
 
+    /**
+     * Checks if date is valid
+     * @param date date passed in to check
+     * @return returns whether date is valid or not
+     */
     private boolean isValidDate(String date) {
         return DATE_PATTERN.matcher(date).matches();
     }
 
+    /**
+     * Calculates duration for trip
+     * @param startDateStr the start date
+     * @param endDateStr the end date
+     * @return returns the duration
+     */
     private long calculateDuration(String startDateStr, String endDateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
@@ -162,6 +188,9 @@ public class DestinationsFragment extends Fragment {
         }
     }
 
+    /**
+     * Clears the inputs for the information
+     */
     private void clearInputs() {
         inputLocation.setText("");
         inputStartTime.setText("");
@@ -171,6 +200,12 @@ public class DestinationsFragment extends Fragment {
         inputDuration.setText("");
     }
 
+    /**
+     * Saves the travel data information
+     * @param location the location of where you want to go
+     * @param startTime the time of start
+     * @param endTime the time of ending
+     */
     private void saveTravelData(String location, String startTime, String endTime) {
         String key = mDatabase.child("travelLogs").push().getKey();
         Map<String, String> travelData = new HashMap<>();
@@ -186,6 +221,9 @@ public class DestinationsFragment extends Fragment {
                 });
     }
 
+    /**
+     * Saves the Vacation data
+     */
     private void saveVacationData() {
         String startDate = inputStartDate.getText().toString().trim();
         String endDate = inputEndDate.getText().toString().trim();
@@ -207,6 +245,9 @@ public class DestinationsFragment extends Fragment {
         }
     }
 
+    /**
+     * Calculates vacation time
+     */
     private void calculateVacationTime() {
         String startDateStr = inputStartDate.getText().toString();
         String endDateStr = inputEndDate.getText().toString();
@@ -242,7 +283,8 @@ public class DestinationsFragment extends Fragment {
                 Toast.makeText(getActivity(), "Please fill in at least two fields!", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Invalid input! Please use yyyy-MM-dd format for dates.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Invalid input! Please use yyyy-MM-dd format for dates.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

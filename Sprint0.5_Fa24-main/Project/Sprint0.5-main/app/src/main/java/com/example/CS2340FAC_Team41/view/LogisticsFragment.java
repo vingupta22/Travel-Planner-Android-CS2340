@@ -33,9 +33,11 @@ public class LogisticsFragment extends Fragment {
     private PieChart pieChart;
     private TextView tvTotalDays;
     private Button btnVisualize;
-    private DatabaseReference travelLogsRef, vacationLogsRef;
+    private DatabaseReference travelLogsRef;
+    private DatabaseReference vacationLogsRef;
     private String userId;
-    private int allottedDays = 0, totalPlannedDays = 0;
+    private int allottedDays = 0;
+    private int totalPlannedDays = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +71,9 @@ public class LogisticsFragment extends Fragment {
         btnVisualize.setOnClickListener(v -> visualizeTripDays());
     }
 
+    /**
+     * This loads the allotted days
+     */
     private void loadAllottedDays() {
         vacationLogsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -87,6 +92,9 @@ public class LogisticsFragment extends Fragment {
         });
     }
 
+    /**
+     * Load the panned vacation days as requested
+     */
     private void loadPlannedVacationDays() {
         travelLogsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -98,7 +106,9 @@ public class LogisticsFragment extends Fragment {
                     String startDateStr = trip.child("startTime").getValue(String.class);
                     String endDateStr = trip.child("endTime").getValue(String.class);
 
-                    if (startDateStr == null || endDateStr == null) continue;
+                    if (startDateStr == null || endDateStr == null) {
+                        continue;
+                    }
 
                     try {
                         Date startDate = dateFormat.parse(startDateStr);
@@ -124,6 +134,9 @@ public class LogisticsFragment extends Fragment {
         });
     }
 
+    /**
+     * Visualizes the trip days
+     */
     private void visualizeTripDays() {
         List<PieEntry> entries = new ArrayList<>();
 
