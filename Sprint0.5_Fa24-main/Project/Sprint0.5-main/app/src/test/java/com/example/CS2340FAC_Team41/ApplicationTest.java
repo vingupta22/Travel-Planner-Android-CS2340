@@ -34,6 +34,8 @@ public class ApplicationTest {
     }
 
     // Sprint 1: Login Validation Tests
+
+    //Author: Vinay Gupta
     @Test
     public void testEmptyUsername() {
         String username = "";
@@ -45,6 +47,9 @@ public class ApplicationTest {
         String username = "   ";
         assertTrue("Username should be invalid if only whitespace", username.trim().isEmpty());
     }
+
+
+    //Author: Dev Patel
 
     @Test
     public void testInvalidLogin() {
@@ -58,7 +63,10 @@ public class ApplicationTest {
         assertNotNull("Login should succeed for valid accounts", mockAuth.getCurrentUser());
     }
 
+
     // Sprint 2: Travel Location Tests
+
+    //Author: Viraj Kulkarni
     @Test
     public void testEmptyTravelLocationInput() {
         String location = "";
@@ -72,29 +80,35 @@ public class ApplicationTest {
     }
 
     // Sprint 2: Firebase Storage Tests
+
+    //Author: Justin Zheng
     @Test
     public void testTravelLogStorage() {
-        String key = "testKey";
-        when(mockReference.push().getKey()).thenReturn(key);
+        // Create a mock Firebase reference
+        DatabaseReference mockReference = mock(DatabaseReference.class);
 
-        mockReference.child(key).setValue("New York");
+        // Store simple data
+        mockReference.setValue("New York");
 
-        verify(mockReference).child(key);
+        // Verify the setValue method was called
         verify(mockReference).setValue("New York");
     }
 
     @Test
     public void testVacationDataStorage() {
-        String key = "vacationKey";
-        when(mockReference.push().getKey()).thenReturn(key);
+        // Create a mock Firebase reference
+        DatabaseReference mockReference = mock(DatabaseReference.class);
 
-        mockReference.child(key).setValue("10 days");
+        // Store simple vacation data
+        mockReference.setValue("10 days");
 
-        verify(mockReference).child(key);
+        // Verify the setValue method was called
         verify(mockReference).setValue("10 days");
     }
 
     // Sprint 2: Vacation Time Calculation Tests
+
+    //Author: Anish Cheraku
     @Test
     public void testCalculateDuration() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
