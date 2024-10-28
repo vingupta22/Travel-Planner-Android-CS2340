@@ -85,6 +85,16 @@ public class DestinationsFragment extends Fragment {
             String startTime = inputStartTime.getText().toString().trim();
             String endTime = inputEndTime.getText().toString().trim();
 
+            if(location.length()==0){
+                location="Location";
+            }
+            if(startTime.length()==0){
+                startTime="2024-02-02";
+            }
+            if(endTime.length()==0){
+                endTime="2024-02-02";
+            }
+
             if (location.isEmpty() || !isValidDate(startTime) || !isValidDate(endTime)) {
                 Toast.makeText(getActivity(), "Please enter valid data in YYYY-MM-DD format.", Toast.LENGTH_SHORT).show();
             } else {
