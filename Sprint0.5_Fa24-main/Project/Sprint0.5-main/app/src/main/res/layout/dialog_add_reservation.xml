@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edit_text_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location" />
+
+    <EditText
+        android:id="@+id/edit_text_website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Website" />
+
+    <EditText
+        android:id="@+id/edit_text_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reservation Time" />
+
+    <EditText
+        android:id="@+id/edit_text_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reviews (Optional)" />
+
+    <Button
+        android:id="@+id/button_save_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+</LinearLayout>
