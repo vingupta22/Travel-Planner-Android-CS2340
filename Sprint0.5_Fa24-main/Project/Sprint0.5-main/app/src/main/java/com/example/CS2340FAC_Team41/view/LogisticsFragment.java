@@ -1,14 +1,20 @@
 package com.example.CS2340FAC_Team41.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.CS2340FAC_Team41.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -28,11 +34,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import model.Note;
+import model.NotesAdapter;
+
 public class LogisticsFragment extends Fragment {
 
     private PieChart pieChart;
     private TextView tvTotalDays;
     private Button btnVisualize;
+    private Button btnAddNote;
+    private RecyclerView recyclerNotes;
+    private NotesAdapter notesAdapter;
+    private DatabaseReference notesRef;
+    private List<Note> noteList = new ArrayList<>();
     private DatabaseReference travelLogsRef;
     private DatabaseReference vacationLogsRef;
     private String userId;
@@ -59,9 +73,21 @@ public class LogisticsFragment extends Fragment {
                 .child(userId)
                 .child("vacationLogs");
 
+        notesRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(userId)
+                .child("notes");
+        btnAddNote = view.findViewById(R.id.btn_add_note);
+        recyclerNotes = view.findViewById(R.id.recycler_notes);
+        recyclerNotes.setLayoutManager(new LinearLayoutManager(getContext()));
+        notesAdapter = new NotesAdapter(noteList);
+        recyclerNotes.setAdapter(notesAdapter);
         pieChart = view.findViewById(R.id.pie_chart);
         tvTotalDays = view.findViewById(R.id.tv_total_days);
         btnVisualize = view.findViewById(R.id.btn_visualize);
+        // Load existing notes
+        loadNotes();
+        // Add Note Button Click Listener
+        btnAddNote.setOnClickListener(v -> showAddNoteDialog());
 
         // Load allotted and planned vacation days
         loadAllottedDays();
@@ -69,6 +95,58 @@ public class LogisticsFragment extends Fragment {
 
         // Set up button listener for the pie chart visualization
         btnVisualize.setOnClickListener(v -> visualizeTripDays());
+    }
+
+    private void loadNotes() {
+        notesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                noteList.clear();
+                for (DataSnapshot noteSnapshot : snapshot.getChildren()) {
+                    Note note = noteSnapshot.getValue(Note.class);
+                    noteList.add(note);
+                }
+                notesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to load notes", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showAddNoteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Add Note");
+
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("Add", (dialog, which) -> {
+            String noteContent = input.getText().toString().trim();
+            if (!noteContent.isEmpty()) {
+                addNoteToFirebase(noteContent);
+            } else {
+                Toast.makeText(getContext(), "Note cannot be empty", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+    private void addNoteToFirebase(String content) {
+        String noteId = notesRef.push().getKey();
+        Note newNote = new Note(userId, content, System.currentTimeMillis());
+        notesRef.child(noteId).setValue(newNote).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(getContext(), "Note added successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Failed to add note", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
