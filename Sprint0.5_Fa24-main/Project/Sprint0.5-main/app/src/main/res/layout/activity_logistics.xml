@@ -53,11 +53,13 @@
         android:text="Add Note"
         android:layout_marginBottom="16dp" />
 
-    <!-- ListView for Contributors -->
-    <ListView
-        android:id="@+id/list_contributors"
+    <!-- Show notes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_notes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"/>
+
 
 </LinearLayout>
