@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,14 +12,65 @@
         android:text="Accommodation"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:visibility="visible" /><!-- Add some margin for spacing -->
+        android:layout_marginBottom="16dp" />
 
-    <!-- Add more UI elements for the Dining screen, e.g., RecyclerView or ListView -->
-    <ListView
-        android:id="@+id/recycler_view_dining"
+    <!-- Input fields for Accommodation details -->
+    <EditText
+        android:id="@+id/input_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location" />
+
+    <EditText
+        android:id="@+id/input_room_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Room Type" />
+
+    <EditText
+        android:id="@+id/input_check_in_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Check-In Date (YYYY-MM-DD)" />
+
+    <EditText
+        android:id="@+id/input_check_out_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Check-Out Date (YYYY-MM-DD)" />
+
+    <EditText
+        android:id="@+id/input_number_of_rooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Number of Rooms"
+        android:inputType="number" />
+
+    <!-- Button for submitting form data -->
+    <Button
+        android:id="@+id/btn_submit_accommodation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit" />
+
+    <!-- Buttons for sorting options -->
+    <Button
+        android:id="@+id/btn_sort_check_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort by Check-In Date" />
+
+    <Button
+        android:id="@+id/btn_sort_check_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort by Check-Out Date" />
+
+    <!-- RecyclerView for displaying accommodation list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accommodation_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" /> <!-- This will fill the remaining space -->
+        android:layout_weight="1" />
 
 </LinearLayout>
