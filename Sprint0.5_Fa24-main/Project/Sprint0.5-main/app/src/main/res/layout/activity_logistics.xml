@@ -1,3 +1,4 @@
+<!-- File: res/layout/activity_logistics.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,6 +46,24 @@
         android:text="Invite Users"
         android:layout_marginBottom="8dp" />
 
+    <!-- Contributors Label -->
+    <TextView
+        android:id="@+id/tv_contributors_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contributors:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Contributors RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_contributors"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp" />
+
     <!-- Add Note Button -->
     <Button
         android:id="@+id/btn_add_note"
@@ -53,13 +72,12 @@
         android:text="Add Note"
         android:layout_marginBottom="16dp" />
 
-    <!-- Show notes -->
+    <!-- Show Notes RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_notes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp"/>
-
 
 </LinearLayout>

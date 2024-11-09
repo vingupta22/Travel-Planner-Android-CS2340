@@ -4,6 +4,8 @@ ADDED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/Col
 INJECTED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/src/main/AndroidManifest.xml:2:1-32:12
 INJECTED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/src/main/AndroidManifest.xml:2:1-32:12
 INJECTED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/src/main/AndroidManifest.xml:2:1-32:12
+MERGED from [androidx.databinding:databinding-adapters:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/d52269cca293c42cbe7472f8696c6f87/transformed/databinding-adapters-8.5.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.databinding:databinding-runtime:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/b23f627793572af0adff403c3dc994ff/transformed/databinding-runtime-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:viewbinding:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/2e0ddd8fb465de20e9ad1bd7a0082ab4/transformed/viewbinding-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] /Users/virajkulkarni/.gradle/caches/transforms-4/ba36581a66b81728943e6e05a0c5f53b/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/virajkulkarni/.gradle/caches/transforms-4/01338272b9c1c6331a717c3d2f0ec022/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -178,6 +180,10 @@ uses-sdk
 INJECTED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/src/main/AndroidManifest.xml
 INJECTED from /Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/2340/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/src/main/AndroidManifest.xml
+MERGED from [androidx.databinding:databinding-adapters:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/d52269cca293c42cbe7472f8696c6f87/transformed/databinding-adapters-8.5.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-adapters:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/d52269cca293c42cbe7472f8696c6f87/transformed/databinding-adapters-8.5.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-runtime:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/b23f627793572af0adff403c3dc994ff/transformed/databinding-runtime-8.5.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-runtime:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/b23f627793572af0adff403c3dc994ff/transformed/databinding-runtime-8.5.2/AndroidManifest.xml:5:5-44
 MERGED from [androidx.databinding:viewbinding:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/2e0ddd8fb465de20e9ad1bd7a0082ab4/transformed/viewbinding-8.5.2/AndroidManifest.xml:5:5-44
 MERGED from [androidx.databinding:viewbinding:8.5.2] /Users/virajkulkarni/.gradle/caches/transforms-4/2e0ddd8fb465de20e9ad1bd7a0082ab4/transformed/viewbinding-8.5.2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.material:material:1.12.0] /Users/virajkulkarni/.gradle/caches/transforms-4/ba36581a66b81728943e6e05a0c5f53b/transformed/material-1.12.0/AndroidManifest.xml:20:5-44
