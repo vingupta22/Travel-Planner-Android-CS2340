@@ -1,14 +1,12 @@
 package model;
 
-
 import java.util.ArrayList;
 
 public class User {
-    // A model for users to be implemented in a later sprint
     private String firstName;
     private String lastName;
     private String age;
-    private String userName;
+    private String email; // Added email field
     private ArrayList<String> locations;
 
     /**
@@ -18,29 +16,54 @@ public class User {
     }
 
     /**
-     * Constructor for userName and locations
-     * @param userName the userName name
+     * Constructor with email and locations
+     * @param email the email of the user
      */
-    public User(String userName) {
-        this.userName = userName;
-        this.locations =  new ArrayList<>();
+    public User(String email) {
+        this.email = email;
+        this.locations = new ArrayList<>();
     }
 
     /**
-     * Gets the locations
-     * @return the locations you requested
+     * Getters and Setters
      */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age){
+        this.age = age;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
     public ArrayList<String> getLocations() {
         return locations;
     }
 
-    /**
-     * Adds the location
-     * @param loc the location you want to add
-     */
     public void addLocation(String loc) {
         this.locations.add(loc);
     }
-
-
 }
