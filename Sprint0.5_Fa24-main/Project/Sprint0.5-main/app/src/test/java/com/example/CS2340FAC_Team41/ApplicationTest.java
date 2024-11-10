@@ -130,4 +130,8 @@ public class ApplicationTest {
         assertTrue("Start date, end date, or duration must not be empty",
                 startDate.isEmpty() && endDate.isEmpty() && duration.isEmpty());
     }
+
+
+    // Sprint 3
+
 }
