@@ -52,14 +52,19 @@ public class LogisticsFragment extends Fragment {
     private Button btnInvite;
     private RecyclerView recyclerNotes;
     private RecyclerView recyclerContributors;
+    private RecyclerView recyclerSharedNotes; // New RecyclerView for Shared Notes
     private NotesAdapter notesAdapter;
     private ContributorsAdapter contributorsAdapter;
+    private NotesAdapter sharedNotesAdapter; // New Adapter for Shared Notes
     private DatabaseReference notesRef;
     private DatabaseReference travelLogsRef;
     private DatabaseReference vacationLogsRef;
     private DatabaseReference contributorsRef;
+    private DatabaseReference sharedWithRef;
     private List<Note> noteList = new ArrayList<>();
+    private List<Note> sharedNoteList = new ArrayList<>(); // New List for Shared Notes
     private List<Contributor> contributorList = new ArrayList<>();
+    private List<String> sharedWithList = new ArrayList<>();
     private String userId;
     private int allottedDays = 0;
     private int totalPlannedDays = 0;
@@ -93,12 +98,23 @@ public class LogisticsFragment extends Fragment {
                 .child(userId)
                 .child("contributors");
 
+        // Reference to sharedWith list
+        sharedWithRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(userId)
+                .child("sharedWith");
+
         // Initialize UI Components
         btnAddNote = view.findViewById(R.id.btn_add_note);
         recyclerNotes = view.findViewById(R.id.recycler_notes);
         recyclerNotes.setLayoutManager(new LinearLayoutManager(getContext()));
         notesAdapter = new NotesAdapter(noteList);
         recyclerNotes.setAdapter(notesAdapter);
+
+        // Initialize Shared Notes RecyclerView
+        recyclerSharedNotes = view.findViewById(R.id.recycler_shared_notes);
+        recyclerSharedNotes.setLayoutManager(new LinearLayoutManager(getContext()));
+        sharedNotesAdapter = new NotesAdapter(sharedNoteList);
+        recyclerSharedNotes.setAdapter(sharedNotesAdapter);
 
         pieChart = view.findViewById(R.id.pie_chart);
         tvTotalDays = view.findViewById(R.id.tv_total_days);
@@ -114,6 +130,9 @@ public class LogisticsFragment extends Fragment {
         // Load existing notes and contributors
         loadNotes();
         loadContributors();
+
+        // Load sharedWith list and then load shared data
+        loadSharedWithAndSharedData();
 
         // Set Click Listeners
         btnAddNote.setOnClickListener(v -> showAddNoteDialog());
@@ -329,6 +348,63 @@ public class LogisticsFragment extends Fragment {
     }
 
     /**
+     * Loads the sharedWith list and then fetches shared data from those users
+     */
+    private void loadSharedWithAndSharedData(){
+        sharedWithRef.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot){
+                sharedWithList.clear();
+                sharedNoteList.clear(); // Clear previous shared notes
+                for(DataSnapshot sharedWithSnapshot : snapshot.getChildren()){
+                    String ownerUserId = sharedWithSnapshot.getKey();
+                    if(ownerUserId != null){
+                        sharedWithList.add(ownerUserId);
+                        fetchSharedData(ownerUserId);
+                    }
+                }
+                sharedNotesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error){
+                Toast.makeText(getContext(), "Failed to load shared data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Fetches shared data (locations, notes, etc.) from the owners
+     */
+    private void fetchSharedData(String ownerUserId){
+        // Fetch shared user's notes
+        DatabaseReference ownerNotesRef = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(ownerUserId)
+                .child("notes");
+
+        ownerNotesRef.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot){
+                for(DataSnapshot noteSnapshot : snapshot.getChildren()){
+                    Note sharedNote = noteSnapshot.getValue(Note.class);
+                    if(sharedNote != null){
+                        sharedNoteList.add(sharedNote);
+                    }
+                }
+                // Notify adapter after all shared notes are added
+                sharedNotesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error){
+                Log.e("LogisticsFragment", "Failed to fetch shared notes from " + ownerUserId, error.toException());
+                Toast.makeText(getContext(), "Failed to fetch shared notes from a contributor", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
      * Shows a dialog to invite a new user by email
      */
     private void showInviteUserDialog(){
@@ -391,6 +467,23 @@ public class LogisticsFragment extends Fragment {
                                                     if(task.isSuccessful()){
                                                         Log.d("InviteUser", "User invited successfully: " + invitedUserEmail);
                                                         Toast.makeText(getContext(), "User invited successfully", Toast.LENGTH_SHORT).show();
+
+                                                        // Also, update User B's sharedWith list to include User A
+                                                        DatabaseReference sharedWithRef = FirebaseDatabase.getInstance()
+                                                                .getReference("users")
+                                                                .child(invitedUserId)
+                                                                .child("sharedWith")
+                                                                .child(userId); // userId is User A's UID
+
+                                                        sharedWithRef.setValue(true)
+                                                                .addOnCompleteListener(sharedTask -> {
+                                                                    if(sharedTask.isSuccessful()){
+                                                                        Log.d("InviteUser", "User A added to User B's sharedWith list");
+                                                                    } else {
+                                                                        Log.e("InviteUser", "Failed to add User A to User B's sharedWith list", sharedTask.getException());
+                                                                    }
+                                                                });
+
                                                     } else {
                                                         Log.e("InviteUser", "Failed to invite user: " + invitedUserEmail, task.getException());
                                                         Toast.makeText(getContext(), "Failed to invite user", Toast.LENGTH_SHORT).show();

@@ -74,6 +74,40 @@
                 android:layout_marginBottom="16dp"/>
         </LinearLayout>
 
+        <!-- Shared Contributors Section -->
+        <TextView
+            android:id="@+id/tv_shared_with_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shared With"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/layout_shared_with"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- RecyclerView for Shared Data (e.g., Shared Notes) -->
+            <TextView
+                android:id="@+id/tv_shared_notes_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shared Notes"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_shared_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+
         <!-- Add Note Button -->
         <Button
             android:id="@+id/btn_add_note"
