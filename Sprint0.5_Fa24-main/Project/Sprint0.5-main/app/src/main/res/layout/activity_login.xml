@@ -17,10 +17,12 @@
 
     <!-- Username -->
     <EditText
-        android:id="@+id/edit_username"
+        android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username" />
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
 
     <!-- Password -->
     <EditText
