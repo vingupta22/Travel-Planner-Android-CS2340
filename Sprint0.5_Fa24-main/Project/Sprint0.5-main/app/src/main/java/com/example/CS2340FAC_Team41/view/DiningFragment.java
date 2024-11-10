@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -25,10 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class DiningFragment extends Fragment {
 
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference2;
     private ArrayList<DiningReservation> diningReservations;
     private DiningReservationAdapter adapter;
     private ListView listView;
@@ -53,6 +58,7 @@ public class DiningFragment extends Fragment {
         // Get Firebase user ID
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId).child("diningReservations");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("dining").child(userId);
 
         // Fetch and display data from Firebase
         loadDiningReservations();
@@ -60,6 +66,19 @@ public class DiningFragment extends Fragment {
         // Set up FAB click listener to open the add reservation dialog
         fabAddReservation.setOnClickListener(v -> showAddReservationDialog());
     }
+
+
+    private static final Pattern DATE_PATTERN = Pattern.compile("\\d{2}-\\d{2}-\\d{4}");
+
+    private boolean isValidDate(String date) {
+        return DATE_PATTERN.matcher(date).matches();
+    }
+
+    private boolean isDuplicate(String location) {
+       return false;
+    }
+
+
 
     private void loadDiningReservations() {
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -98,7 +117,11 @@ public class DiningFragment extends Fragment {
             String time = timeInput.getText().toString().trim();
             String reviews = reviewsInput.getText().toString().trim();
 
-            if (!location.isEmpty() && !website.isEmpty() && !time.isEmpty()) {
+            if (!location.isEmpty() && !website.isEmpty() && !time.isEmpty() && isValidDate(time)) {
+                if(isDuplicate(location)){
+                    Toast.makeText(getContext(), "dulicate location entered", Toast.LENGTH_SHORT).show();
+                }
+                else{
                 String reservationId = databaseReference.push().getKey();
                 DiningReservation reservation = new DiningReservation(location, website, time, reviews);
                 databaseReference.child(reservationId).setValue(reservation)
@@ -107,8 +130,18 @@ public class DiningFragment extends Fragment {
                             dialog.dismiss();
                         })
                         .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to add reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-            } else {
-                Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
+
+                String reservationId2 = databaseReference2.push().getKey();
+                DiningReservation reservation2 = new DiningReservation(location, website, time, reviews);
+                databaseReference2.child(reservationId2).setValue(reservation2)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(), "Reservation added!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to add reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+            } }else {
+                Toast.makeText(getContext(), "Please fill in all required fields or make sure time is in the right format", Toast.LENGTH_SHORT).show();
             }
         });
 
