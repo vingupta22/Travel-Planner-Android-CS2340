@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.btn_create_account).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this, SignupActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
