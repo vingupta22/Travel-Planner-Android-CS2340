@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.CS2340FAC_Team41.view.AccommodationAdapter;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,8 +31,14 @@ import viewmodel.SortByCheckOutDate;
 public class AccommodationsFragment extends Fragment {
 
     private AccommodationViewModel accommodationViewModel;
-    private EditText inputLocation, inputRoomType, inputCheckInDate, inputCheckOutDate, inputNumberOfRooms;
-    private Button submitButton, sortCheckInButton, sortCheckOutButton;
+    private EditText inputLocation;
+    private EditText inputRoomType;
+    private EditText inputCheckInDate;
+    private EditText inputCheckOutDate;
+    private EditText inputNumberOfRooms;
+    private Button submitButton;
+    private Button sortCheckInButton;
+    private Button sortCheckOutButton;
     private RecyclerView accommodationRecyclerView;
     private AccommodationAdapter adapter;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -65,7 +70,17 @@ public class AccommodationsFragment extends Fragment {
     }
 
 
-
+    /**
+     * Initializes the form UI elements and sets up click listeners for user actions.
+     *
+     * @param view the root view containing the form elements
+     *
+     * <p>This method sets up various input fields and buttons used for capturing accommodation details:
+     * location, room type, check-in and check-out dates, and the number of rooms. Additionally, it
+     * assigns click listeners to the submit and sort buttons for handling user actions.</p>
+     *
+     *
+     */
     private void setupForm(View view) {
         inputLocation = view.findViewById(R.id.input_location);
         inputRoomType = view.findViewById(R.id.input_room_type);
@@ -82,6 +97,10 @@ public class AccommodationsFragment extends Fragment {
         sortCheckOutButton.setOnClickListener(v -> accommodationViewModel.setSortStrategy(new SortByCheckOutDate()));
     }
 
+    /**
+     * Validates and adds a new accommodation entry based on user inputs.
+     * Displays error messages if input fields are invalid or duplicate entries are detected.
+     */
     private void addAccommodation() {
         String location = inputLocation.getText().toString();
         String roomType = inputRoomType.getText().toString();
@@ -98,14 +117,18 @@ public class AccommodationsFragment extends Fragment {
         }
 
         // Check for empty fields
-        if (TextUtils.isEmpty(location) || TextUtils.isEmpty(roomType) || TextUtils.isEmpty(checkInDate) || TextUtils.isEmpty(checkOutDate)) {
+        if (TextUtils.isEmpty(location) || TextUtils.isEmpty(roomType) || TextUtils.isEmpty(checkInDate)
+                || TextUtils.isEmpty(checkOutDate)) {
             Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Check date format and logical consistency
-        if (!isValidDateFormat(checkInDate) || !isValidDateFormat(checkOutDate) || !isCheckInBeforeCheckOut(checkInDate, checkOutDate)) {
-            Toast.makeText(getContext(), "Please enter valid dates (format: YYYY-MM-DD) and ensure check-in is before check-out", Toast.LENGTH_SHORT).show();
+        if (!isValidDateFormat(checkInDate) || !isValidDateFormat(checkOutDate)
+                || !isCheckInBeforeCheckOut(checkInDate, checkOutDate)) {
+            Toast.makeText(getContext(),
+                    "Please enter valid dates (format: YYYY-MM-DD) and ensure check-in is before check-out",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -124,6 +147,12 @@ public class AccommodationsFragment extends Fragment {
         clearInputs();
     }
 
+    /**
+     * Checks if a date string is in the correct format (YYYY-MM-DD).
+     *
+     * @param date the date string to validate
+     * @return true if the date format is valid, false otherwise
+     */
     private boolean isValidDateFormat(String date) {
         try {
             dateFormat.setLenient(false);
@@ -134,6 +163,13 @@ public class AccommodationsFragment extends Fragment {
         }
     }
 
+    /**
+     * Checks if the check-in date is before the check-out date.
+     *
+     * @param checkInDate the check-in date
+     * @param checkOutDate the check-out date
+     * @return true if check-in is before check-out, false otherwise
+     */
     private boolean isCheckInBeforeCheckOut(String checkInDate, String checkOutDate) {
         try {
             Date checkIn = dateFormat.parse(checkInDate);
@@ -144,6 +180,14 @@ public class AccommodationsFragment extends Fragment {
         }
     }
 
+    /**
+     * Checks if an accommodation entry with the specified location and dates already exists.
+     *
+     * @param location the location of the accommodation
+     * @param checkInDate the check-in date
+     * @param checkOutDate the check-out date
+     * @return true if a duplicate entry exists, false otherwise
+     */
     private boolean isDuplicateEntry(String location, String checkInDate, String checkOutDate) {
         List<Accommodation> accommodations = accommodationViewModel.getAccommodationsLiveData().getValue();
         if (accommodations != null) {
@@ -157,7 +201,9 @@ public class AccommodationsFragment extends Fragment {
         }
         return false;
     }
-
+    /**
+     * Clears all input fields in the form.
+     */
     private void clearInputs() {
         inputLocation.setText("");
         inputRoomType.setText("");

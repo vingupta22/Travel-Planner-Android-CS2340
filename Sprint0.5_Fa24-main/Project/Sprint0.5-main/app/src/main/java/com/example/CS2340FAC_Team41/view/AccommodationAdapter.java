@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import android.os.Bundle;
-
 import model.Accommodation;
 
 public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdapter.AccommodationViewHolder> {
@@ -26,10 +24,19 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
     private List<Accommodation> accommodations = new ArrayList<>();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
+    /**
+     * Sets the list of accommodations and updates the view.
+     *
+     * This method assigns a new list of accommodations to be displayed
+     * and triggers an update of the view by calling {@code notifyDataSetChanged()}.
+     *
+     * @param accommodations the new list of {@link Accommodation} objects to be displayed
+     */
     public void setAccommodations(List<Accommodation> accommodations) {
         this.accommodations = accommodations;
         notifyDataSetChanged();
     }
+
 
     @NonNull
     @Override
@@ -60,6 +67,13 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         return accommodations.size();
     }
 
+    /**
+     * Checks if a given check-out date has expired, i.e., if the date is before the current date.
+     *
+     * @param checkOutDate the check-out date as a string in the expected date format.
+     * @return {@code true} if the check-out date is before today's date, indicating it has expired;
+     *         {@code false} if the date is today, in the future, or if parsing fails.
+     */
     private boolean isExpired(String checkOutDate) {
         try {
             Date today = new Date();
@@ -70,6 +84,7 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         }
     }
 
+
     public static class AccommodationViewHolder extends RecyclerView.ViewHolder {
         private final TextView locationTextView;
         private final TextView roomTypeTextView;
@@ -77,6 +92,15 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         private final TextView checkOutDateTextView;
         private final TextView numberOfRoomsTextView;
 
+        /**
+         * Constructor for initializing the AccommodationViewHolder.
+         * <p>
+         * This view holder binds various TextView elements to display accommodation details,
+         * including location, room type, check-in and check-out dates, and the number of rooms.
+         * </p>
+         *
+         * @param itemView the view that contains the UI elements for an accommodation item
+         */
         public AccommodationViewHolder(@NonNull View itemView) {
             super(itemView);
             locationTextView = itemView.findViewById(R.id.locationTextView);
@@ -85,5 +109,6 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
             checkOutDateTextView = itemView.findViewById(R.id.checkOutDateTextView);
             numberOfRoomsTextView = itemView.findViewById(R.id.numberOfRoomsTextView);
         }
+
     }
 }

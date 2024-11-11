@@ -16,6 +16,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     private List<Note> notesList;
 
+    /**
+     * Constructs a NotesAdapter with the specified list of notes.
+     *
+     * @param notesList the list of notes to be managed by the adapter
+     */
     public NotesAdapter(List<Note> notesList) {
         this.notesList = notesList;
     }
@@ -41,6 +46,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView noteContent;
 
+        /**
+         * Initializes the NoteViewHolder with the specified item view and its UI components.
+         *
+         * @param itemView the view representing a single note item
+         */
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             noteContent = itemView.findViewById(R.id.note_content);

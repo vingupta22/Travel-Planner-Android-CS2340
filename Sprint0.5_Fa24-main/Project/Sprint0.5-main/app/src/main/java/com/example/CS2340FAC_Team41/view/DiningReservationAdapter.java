@@ -16,6 +16,11 @@ public class DiningReservationAdapter extends RecyclerView.Adapter<DiningReserva
     private ArrayList<DiningReservation> diningList;
     private Context context;
 
+    /**
+     * Constructs a new DiningReservationAdapter with the specified list of dining reservations.
+     *
+     * @param diningList the list of dining reservations to be managed by the adapter
+     */
     public DiningReservationAdapter(ArrayList<DiningReservation> diningList) {
         this.diningList = diningList;
     }
@@ -48,8 +53,17 @@ public class DiningReservationAdapter extends RecyclerView.Adapter<DiningReserva
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView locationView, dateView, timeView, websiteView, reviewsView;
+        private TextView locationView;
+        private TextView dateView;
+        private TextView timeView;
+        private TextView websiteView;
+        private TextView reviewsView;
 
+        /**
+         * Initializes the ViewHolder with the specified item view and its UI components.
+         *
+         * @param itemView the view representing a single dining reservation item
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             locationView = itemView.findViewById(R.id.locationView);
@@ -59,6 +73,11 @@ public class DiningReservationAdapter extends RecyclerView.Adapter<DiningReserva
             reviewsView = itemView.findViewById(R.id.reviewsView);
         }
 
+        /**
+         * Binds the dining reservation data to the ViewHolder's UI components.
+         *
+         * @param reservation the DiningReservation to display
+         */
         public void bind(DiningReservation reservation) {
             locationView.setText(reservation.getLocation());
             dateView.setText(reservation.getDate());

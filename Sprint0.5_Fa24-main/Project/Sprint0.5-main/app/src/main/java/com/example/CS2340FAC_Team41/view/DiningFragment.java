@@ -25,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import com.example.CS2340FAC_Team41.R;
 
@@ -35,14 +34,19 @@ public class DiningFragment extends Fragment {
     private RecyclerView recyclerView;
     private DiningReservationAdapter diningAdapter;
     private ArrayList<DiningReservation> diningList;
-    private Button sortButton, submitButton;
-    private EditText locationInput, dateTimeInput, websiteInput, reviewsInput;
+    private Button sortButton;
+    private Button submitButton;
+    private EditText locationInput;
+    private EditText dateTimeInput;
+    private EditText websiteInput;
+    private EditText reviewsInput;
 
     private DatabaseReference databaseReference;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_dining, container, false);
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -70,6 +74,15 @@ public class DiningFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Loads dining reservations from Firebase and updates the local list and UI.
+     *
+     * <p>This method retrieves reservation data from Firebase, parses the details including
+     * location, website, reviews, date, and time, and adds them to a local list. The list
+     * is cleared first to avoid duplicates. After loading, the UI adapter is notified to refresh.</p>
+     *
+     * <p>In case of a data retrieval error, an error message is displayed, and the issue is logged.</p>
+     */
     private void loadReservationsFromFirebase() {
         // Log when we start loading data
         Log.d(TAG, "Loading reservations from Firebase...");
@@ -88,7 +101,8 @@ public class DiningFragment extends Fragment {
 
                     Date dateTime;
                     try {
-                        dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(dateString + " " + timeString);
+                        dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm",
+                                Locale.getDefault()).parse(dateString + " " + timeString);
                     } catch (ParseException e) {
                         Log.e(TAG, "Date parse error: " + e.getMessage());
                         continue;
@@ -111,11 +125,20 @@ public class DiningFragment extends Fragment {
         });
     }
 
+    /**
+     * Sorts the list of dining reservations in descending order based on the reservation date and time.
+     * Updates the adapter to reflect the sorted list.
+     */
     private void sortReservations() {
         Collections.sort(diningList, (res1, res2) -> res2.getDateTime().compareTo(res1.getDateTime()));
         diningAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Submits a new dining reservation by validating input fields, creating a new reservation,
+     * and adding it to the Firebase database if valid.
+     * Shows appropriate messages for success or failure.
+     */
     private void submitReservation() {
         String location = locationInput.getText().toString().trim();
         String dateTimeStr = dateTimeInput.getText().toString().trim();
@@ -149,6 +172,12 @@ public class DiningFragment extends Fragment {
     }
 
 
+    /**
+     * Validates a new reservation by checking for duplicates in the current list of reservations.
+     *
+     * @param newReservation the reservation to validate
+     * @return true if the reservation is unique; false if a duplicate is found
+     */
     private boolean validateReservation(DiningReservation newReservation) {
         for (DiningReservation reservation : diningList) {
             boolean sameDateTime = reservation.getDateTime().equals(newReservation.getDateTime());
@@ -162,10 +191,18 @@ public class DiningFragment extends Fragment {
         return true;
     }
 
+    /**
+     * Displays an error message in a Toast.
+     *
+     * @param message the error message to display
+     */
     private void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Clears all input fields used for creating a new reservation.
+     */
     private void clearInputFields() {
         locationInput.setText("");
         dateTimeInput.setText("");

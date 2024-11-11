@@ -17,11 +17,19 @@ import java.util.List;
 
 import model.Accommodation;
 
+/**
+ * ViewModel for managing and storing accommodation data.
+ * Handles data retrieval, addition, and sorting of accommodations.
+ */
 public class AccommodationViewModel extends ViewModel {
     private MutableLiveData<List<Accommodation>> accommodationsLiveData = new MutableLiveData<>(new ArrayList<>());
     private DatabaseReference databaseRef;
     private SortStrategy sortStrategy;
 
+    /**
+     * Initializes the AccommodationViewModel and links to the user's accommodations in Firebase.
+     * Fetches initial accommodation data from the database.
+     */
     public AccommodationViewModel() {
         // Link to user-specific accommodations in Firebase
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -31,11 +39,19 @@ public class AccommodationViewModel extends ViewModel {
         fetchAccommodations();
     }
 
+    /**
+     * Adds a new accommodation to Firebase.
+     *
+     * @param accommodation the Accommodation object to be added
+     */
     public void addAccommodation(Accommodation accommodation) {
         String key = databaseRef.push().getKey();
         databaseRef.child(key).setValue(accommodation);
     }
 
+    /**
+     * Fetches accommodations from Firebase and updates the LiveData.
+     */
     private void fetchAccommodations() {
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -55,11 +71,19 @@ public class AccommodationViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Sets the sorting strategy for accommodations and applies it to the current list.
+     *
+     * @param strategy the SortStrategy to be applied
+     */
     public void setSortStrategy(SortStrategy strategy) {
         this.sortStrategy = strategy;
         applySort();
     }
 
+    /**
+     * Applies the current sort strategy to the accommodations list and updates the LiveData.
+     */
     private void applySort() {
         List<Accommodation> accommodations = accommodationsLiveData.getValue();
         if (sortStrategy != null && accommodations != null) {
@@ -68,6 +92,11 @@ public class AccommodationViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Returns the LiveData containing the list of accommodations.
+     *
+     * @return LiveData of accommodations list
+     */
     public LiveData<List<Accommodation>> getAccommodationsLiveData() {
         return accommodationsLiveData;
     }

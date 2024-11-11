@@ -2,7 +2,6 @@ package com.example.CS2340FAC_Team41.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -87,13 +86,15 @@ public class SignupActivity extends AppCompatActivity {
                                     User user = new User(email);
 
                                     // Store in Realtime Database under 'users/{userId}'
-                                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userId);
+                                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().
+                                            getReference("users").child(userId);
                                     mDatabase.setValue(user)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> dbTask) {
                                                     if (dbTask.isSuccessful()) {
-                                                        Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                                                        Intent intent =
+                                                                new Intent(SignupActivity.this, HomeActivity.class);
                                                         startActivity(intent);
                                                         finish();
                                                     } else {
@@ -115,7 +116,7 @@ public class SignupActivity extends AppCompatActivity {
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SignupActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });

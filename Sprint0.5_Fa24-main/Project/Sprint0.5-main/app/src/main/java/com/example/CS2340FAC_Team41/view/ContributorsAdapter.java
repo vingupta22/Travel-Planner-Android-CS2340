@@ -19,14 +19,20 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
     private List<Contributor> contributorsList;
     private Context context;
 
-    public ContributorsAdapter(Context context, List<Contributor> contributorsList){
+    /**
+     * Constructs a new ContributorsAdapter with the specified context and list of contributors.
+     *
+     * @param context the context in which the adapter is used
+     * @param contributorsList the list of contributors to display
+     */
+    public ContributorsAdapter(Context context, List<Contributor> contributorsList) {
         this.context = context;
         this.contributorsList = contributorsList;
     }
 
     @NonNull
     @Override
-    public ContributorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public ContributorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create a LinearLayout as the root layout for each item
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
@@ -48,28 +54,41 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContributorViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ContributorViewHolder holder, int position) {
         Contributor contributor = contributorsList.get(position);
         holder.tvContributorEmail.setText(contributor.getEmail());
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return contributorsList.size();
     }
 
-    static class ContributorViewHolder extends RecyclerView.ViewHolder{
+    static class ContributorViewHolder extends RecyclerView.ViewHolder {
         TextView tvContributorEmail;
 
-        public ContributorViewHolder(@NonNull View itemView, TextView tvContributorEmail){
+        /**
+         * Initializes a new instance of ContributorViewHolder with the specified item view and email text view.
+         *
+         * @param itemView          the view representing a single item in the list
+         * @param tvContributorEmail the TextView displaying the contributor's email
+         */
+        public ContributorViewHolder(@NonNull View itemView, TextView tvContributorEmail) {
             super(itemView);
             this.tvContributorEmail = tvContributorEmail;
         }
     }
 
     // Helper method to convert dp to pixels
-    private int dpToPx(int dp){
+    /**
+     * Converts a value in density-independent pixels (dp) to pixels (px).
+     *
+     * @param dp the value in dp to convert
+     * @return the equivalent value in pixels
+     */
+    private int dpToPx(int dp) {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
     }
+
 }
