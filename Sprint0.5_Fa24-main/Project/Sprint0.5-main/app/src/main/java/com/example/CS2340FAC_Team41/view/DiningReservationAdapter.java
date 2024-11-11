@@ -1,49 +1,70 @@
 package com.example.CS2340FAC_Team41.view;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import android.widget.ArrayAdapter;
-
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.Date;
 import com.example.CS2340FAC_Team41.R;
 
+public class DiningReservationAdapter extends RecyclerView.Adapter<DiningReservationAdapter.ViewHolder> {
+    private ArrayList<DiningReservation> diningList;
+    private Context context;
 
-import java.util.ArrayList;
-
-public class DiningReservationAdapter extends ArrayAdapter<DiningReservation> {
-
-    public DiningReservationAdapter(@NonNull Context context, ArrayList<DiningReservation> reservations) {
-        super(context, 0, reservations);
+    public DiningReservationAdapter(ArrayList<DiningReservation> diningList) {
+        this.diningList = diningList;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_dining_reservation, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.item_dining_reservation, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        DiningReservation reservation = diningList.get(position);
+        holder.bind(reservation);
+
+        // Check if the reservation is upcoming or expired based on the current date
+        Date currentDate = new Date();
+        if (reservation.getDateTime().after(currentDate)) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.upcoming_reservation));
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.expired_reservation));
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return diningList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView locationView, dateView, timeView, websiteView, reviewsView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            locationView = itemView.findViewById(R.id.locationView);
+            dateView = itemView.findViewById(R.id.dateView);
+            timeView = itemView.findViewById(R.id.timeView);
+            websiteView = itemView.findViewById(R.id.websiteView);
+            reviewsView = itemView.findViewById(R.id.reviewsView);
         }
 
-        DiningReservation reservation = getItem(position);
-
-        TextView locationTextView = convertView.findViewById(R.id.text_view_location);
-        TextView websiteTextView = convertView.findViewById(R.id.text_view_website);
-        TextView timeTextView = convertView.findViewById(R.id.text_view_time);
-        TextView reviewsTextView = convertView.findViewById(R.id.text_view_reviews);
-
-        if (reservation != null) {
-            locationTextView.setText("Location: " + reservation.location);
-            websiteTextView.setText("Website: " + reservation.website);
-            timeTextView.setText("Time: " + reservation.time);
-            reviewsTextView.setText("Reviews: " + reservation.reviews);
+        public void bind(DiningReservation reservation) {
+            locationView.setText(reservation.getLocation());
+            dateView.setText(reservation.getDate());
+            timeView.setText(reservation.getTime());
+            websiteView.setText(reservation.getWebsite());
+            reviewsView.setText(reservation.getReviews());
         }
-
-        return convertView;
     }
 }
-

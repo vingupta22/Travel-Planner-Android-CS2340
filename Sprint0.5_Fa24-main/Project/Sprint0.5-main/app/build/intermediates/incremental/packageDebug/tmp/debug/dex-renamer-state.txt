@@ -1,13 +1,11 @@
-#Sat Nov 09 19:32:50 EST 2024
-base.0=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-base.1=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.2=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/11/classes.dex
-base.3=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
-base.4=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
-base.5=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/6/classes.dex
-base.6=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
-base.7=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes 2.dex
-base.8=/Users/virajkulkarni/Library/Mobile Documents/com~apple~CloudDocs/College24-25/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2 2.dex
+#Sun Nov 10 20:42:45 EST 2024
+base.0=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.2=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/11/classes.dex
+base.3=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
+base.4=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
+base.5=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeProjectDexDebug/6/classes.dex
+base.6=/Users/justinzheng/Documents/GitHub/CS2340FAC_Team41/Sprint0.5_Fa24-main/Project/Sprint0.5-main/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=11/classes.dex
@@ -15,8 +13,6 @@ path.3=4/classes.dex
 path.4=5/classes.dex
 path.5=6/classes.dex
 path.6=classes2.dex
-path.7=classes 2.dex
-path.8=classes2 2.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex
@@ -24,5 +20,3 @@ renamed.3=classes4.dex
 renamed.4=classes5.dex
 renamed.5=classes6.dex
 renamed.6=classes7.dex
-renamed.7=classes8.dex
-renamed.8=classes9.dex
