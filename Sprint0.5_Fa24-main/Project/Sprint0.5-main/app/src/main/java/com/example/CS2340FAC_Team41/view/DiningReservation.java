@@ -1,20 +1,46 @@
 package com.example.CS2340FAC_Team41.view;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class DiningReservation {
-    public String location;
-    public String website;
-    public String time;
-    public String reviews;
+    private String location;
+    private Date dateTime;
+    private String website;
+    private String reviews;
 
-    public DiningReservation() {
-        // Default constructor required for calls to DataSnapshot.getValue(DiningReservation.class)
-    }
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private static final SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
-    public DiningReservation(String location, String website, String time, String reviews) {
+    public DiningReservation(String location, Date dateTime, String website, String reviews) {
         this.location = location;
+        this.dateTime = dateTime;
         this.website = website;
-        this.time = time;
         this.reviews = reviews;
     }
-}
 
+    public String getLocation() {
+        return location;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public String getDate() {
+        return dateFormatter.format(dateTime);
+    }
+
+    public String getTime() {
+        return timeFormatter.format(dateTime);
+    }
+}

@@ -5,27 +5,40 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/text_view_location"
-        android:layout_width="match_parent"
+        android:id="@+id/locationView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Location" />
+        android:text="Location"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/text_view_website"
-        android:layout_width="match_parent"
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Website" />
+        android:text="Date"
+        android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/text_view_time"
-        android:layout_width="match_parent"
+        android:id="@+id/timeView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time" />
+        android:text="Time"
+        android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/text_view_reviews"
-        android:layout_width="match_parent"
+        android:id="@+id/websiteView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reviews" />
+        android:text="Website"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <TextView
+        android:id="@+id/reviewsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reviews"
+        android:textSize="14sp" />
+
 </LinearLayout>
