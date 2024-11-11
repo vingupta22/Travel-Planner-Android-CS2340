@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+// Import additional required classes
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,16 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.CS2340FAC_Team41.R;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+// Import additional required classes
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -58,8 +60,10 @@ public class LogisticsFragment extends Fragment {
     private DatabaseReference travelLogsRef;
     private DatabaseReference vacationLogsRef;
     private DatabaseReference contributorsRef;
+    private DatabaseReference sharedWithMeRef;
     private List<Note> noteList = new ArrayList<>();
     private List<Contributor> contributorList = new ArrayList<>();
+    private List<String> sharedUserIds = new ArrayList<>();
     private String userId;
     private int allottedDays = 0;
     private int totalPlannedDays = 0;
@@ -93,6 +97,11 @@ public class LogisticsFragment extends Fragment {
                 .child(userId)
                 .child("contributors");
 
+        // Initialize SharedWithMe Reference
+        sharedWithMeRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(userId)
+                .child("sharedWithMe");
+
         // Initialize UI Components
         btnAddNote = view.findViewById(R.id.btn_add_note);
         recyclerNotes = view.findViewById(R.id.recycler_notes);
@@ -114,6 +123,7 @@ public class LogisticsFragment extends Fragment {
         // Load existing notes and contributors
         loadNotes();
         loadContributors();
+        loadSharedWithMe();
 
         // Set Click Listeners
         btnAddNote.setOnClickListener(v -> showAddNoteDialog());
@@ -192,6 +202,7 @@ public class LogisticsFragment extends Fragment {
         vacationLogsRef.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot){
+                allottedDays = 0; // Reset before recalculating
                 for(DataSnapshot log : snapshot.getChildren()){
                     String durationStr = log.child("duration").getValue(String.class);
                     if(durationStr != null && !durationStr.isEmpty()){
@@ -203,6 +214,7 @@ public class LogisticsFragment extends Fragment {
                         }
                     }
                 }
+                updateTotalDays();
             }
 
             @Override
@@ -221,6 +233,8 @@ public class LogisticsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot){
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                totalPlannedDays = 0; // Reset before recalculating
 
                 for(DataSnapshot trip : snapshot.getChildren()){
                     String startDateStr = trip.child("startTime").getValue(String.class);
@@ -245,7 +259,7 @@ public class LogisticsFragment extends Fragment {
                         Toast.makeText(getContext(), "Error parsing trip dates", Toast.LENGTH_SHORT).show();
                     }
                 }
-                tvTotalDays.setText("Planned Vacation Days: " + totalPlannedDays);
+                updateTotalDays();
             }
 
             @Override
@@ -329,6 +343,171 @@ public class LogisticsFragment extends Fragment {
     }
 
     /**
+     * Loads shared data from other users who have shared with the current user
+     */
+    private void loadSharedWithMe(){
+        sharedWithMeRef.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot){
+                sharedUserIds.clear();
+                for(DataSnapshot sharedSnapshot : snapshot.getChildren()){
+                    String sharedUserId = sharedSnapshot.getKey();
+                    if(sharedUserId != null){
+                        sharedUserIds.add(sharedUserId);
+                    }
+                }
+                loadSharedContributors();
+                loadSharedNotes();
+                loadSharedTripPlans();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error){
+                Toast.makeText(getContext(), "Failed to load shared data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadSharedContributors(){
+        for(String sharedUserId : sharedUserIds){
+            DatabaseReference sharedContributorsRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(sharedUserId)
+                    .child("contributors");
+
+            sharedContributorsRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot){
+                    for(DataSnapshot contributorSnapshot : snapshot.getChildren()){
+                        Contributor contributor = contributorSnapshot.getValue(Contributor.class);
+                        if(contributor != null && !contributorList.contains(contributor)){
+                            contributorList.add(contributor);
+                        }
+                    }
+                    contributorsAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error){
+                    Toast.makeText(getContext(), "Failed to load shared contributors", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void loadSharedNotes(){
+        for(String sharedUserId : sharedUserIds){
+            DatabaseReference sharedNotesRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(sharedUserId)
+                    .child("notes");
+
+            sharedNotesRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot){
+                    for(DataSnapshot noteSnapshot : snapshot.getChildren()){
+                        Note note = noteSnapshot.getValue(Note.class);
+                        if(note != null && !noteList.contains(note)){
+                            noteList.add(note);
+                        }
+                    }
+                    notesAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error){
+                    Toast.makeText(getContext(), "Failed to load shared notes", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void loadSharedTripPlans(){
+        // Reset counts before recalculating
+        allottedDays = 0;
+        totalPlannedDays = 0;
+
+        for(String sharedUserId : sharedUserIds){
+            DatabaseReference sharedVacationLogsRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(sharedUserId)
+                    .child("vacationLogs");
+
+            DatabaseReference sharedTravelLogsRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(sharedUserId)
+                    .child("travelLogs");
+
+            // Load allotted days
+            sharedVacationLogsRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot){
+                    for(DataSnapshot log : snapshot.getChildren()){
+                        String durationStr = log.child("duration").getValue(String.class);
+                        if(durationStr != null && !durationStr.isEmpty()){
+                            try {
+                                allottedDays += Integer.parseInt(durationStr);
+                            } catch(NumberFormatException e){
+                                e.printStackTrace();
+                                Toast.makeText(getContext(), "Invalid duration format", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    updateTotalDays();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error){
+                    Toast.makeText(getContext(), "Failed to load shared allotted days", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Load planned vacation days
+            sharedTravelLogsRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot){
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                    for(DataSnapshot trip : snapshot.getChildren()){
+                        String startDateStr = trip.child("startTime").getValue(String.class);
+                        String endDateStr = trip.child("endTime").getValue(String.class);
+
+                        if(startDateStr == null || endDateStr == null){
+                            continue;
+                        }
+
+                        try {
+                            Date startDate = dateFormat.parse(startDateStr);
+                            Date endDate = dateFormat.parse(endDateStr);
+
+                            if(startDate != null && endDate != null){
+                                long difference = endDate.getTime() - startDate.getTime();
+                                int tripDays = (int) (difference / (1000 * 60 * 60 * 24)) + 1;
+
+                                totalPlannedDays += tripDays;
+                            }
+                        } catch(ParseException e){
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Error parsing trip dates", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    updateTotalDays();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error){
+                    Toast.makeText(getContext(), "Failed to load shared travel logs", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void updateTotalDays(){
+        getActivity().runOnUiThread(() -> tvTotalDays.setText("Planned Vacation Days: " + totalPlannedDays));
+    }
+
+    /**
      * Shows a dialog to invite a new user by email
      */
     private void showInviteUserDialog(){
@@ -391,6 +570,22 @@ public class LogisticsFragment extends Fragment {
                                                     if(task.isSuccessful()){
                                                         Log.d("InviteUser", "User invited successfully: " + invitedUserEmail);
                                                         Toast.makeText(getContext(), "User invited successfully", Toast.LENGTH_SHORT).show();
+
+                                                        // Add reverse reference under invited user's 'sharedWithMe'
+                                                        DatabaseReference sharedWithMeRef = FirebaseDatabase.getInstance()
+                                                                .getReference("users")
+                                                                .child(invitedUserId)
+                                                                .child("sharedWithMe")
+                                                                .child(userId);
+
+                                                        sharedWithMeRef.setValue(true).addOnCompleteListener(sharedTask -> {
+                                                            if(sharedTask.isSuccessful()){
+                                                                Log.d("InviteUser", "Reverse reference added successfully for user: " + invitedUserEmail);
+                                                            } else {
+                                                                Log.e("InviteUser", "Failed to add reverse reference for user: " + invitedUserEmail, sharedTask.getException());
+                                                            }
+                                                        });
+
                                                     } else {
                                                         Log.e("InviteUser", "Failed to invite user: " + invitedUserEmail, task.getException());
                                                         Toast.makeText(getContext(), "Failed to invite user", Toast.LENGTH_SHORT).show();
