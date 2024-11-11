@@ -15,7 +15,6 @@ import java.util.Locale;
 
 import model.Accommodation;
 
-// Sprint 3, Author Vinay Gupta
 
 public class AccomodationsTest {
     private SimpleDateFormat dateFormat;
@@ -25,6 +24,8 @@ public class AccomodationsTest {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     }
 
+
+    // Author Vinay Gupta
     @Test
     public void testLocationIsNotEmpty() {
         Accommodation accommodation = new Accommodation("New York", "Single", "2024-12-01", "2024-12-10", 1);
@@ -46,6 +47,8 @@ public class AccomodationsTest {
         assertFalse("Check-in date should not be empty", accommodation.getCheckInDate().isEmpty());
     }
 
+
+    // Author Justin Zheng
     @Test
     public void testCheckOutDateIsNotEmpty() {
         Accommodation accommodation = new Accommodation("New York", "Single", "2024-12-01", "2024-12-10", 1);
