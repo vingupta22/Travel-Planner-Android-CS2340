@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#4285F4</color>
     <color name="orange">#FBBC05</color>
+    <color name="upcoming_reservation">#C8E6C9</color>
+    <color name="expired_reservation">#FFCDD2</color>
 </resources>
