@@ -60,14 +60,18 @@ public class AccommodationsFragment extends Fragment {
         adapter = new AccommodationAdapter();
         accommodationRecyclerView.setAdapter(adapter);
 
-        // Observe LiveData for changes
-        accommodationViewModel.getAccommodationsLiveData().observe(getViewLifecycleOwner(), accommodations -> {
-            adapter.setAccommodations(accommodations);
+        // Initialize the Show Accommodations button
+        Button showAccommodationsButton = view.findViewById(R.id.btn_show_accommodations);
+        showAccommodationsButton.setOnClickListener(v -> {
+            accommodationViewModel.getAccommodationsLiveData().observe(getViewLifecycleOwner(), accommodations -> {
+                adapter.setAccommodations(accommodations);
+            });
         });
 
         // Set up form elements and buttons
         setupForm(view);
     }
+
 
 
     /**
