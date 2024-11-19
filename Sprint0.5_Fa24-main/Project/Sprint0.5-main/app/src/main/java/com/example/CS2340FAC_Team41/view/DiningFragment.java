@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,11 +37,6 @@ public class DiningFragment extends Fragment {
     private DiningReservationAdapter diningAdapter;
     private ArrayList<DiningReservation> diningList;
     private Button sortButton;
-    private Button submitButton;
-    private EditText locationInput;
-    private EditText dateTimeInput;
-    private EditText websiteInput;
-    private EditText reviewsInput;
 
     private DatabaseReference databaseReference;
 
@@ -54,24 +51,78 @@ public class DiningFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         sortButton = view.findViewById(R.id.sortButton);
-        submitButton = view.findViewById(R.id.submitButton);
-
-        locationInput = view.findViewById(R.id.locationInput);
-        dateTimeInput = view.findViewById(R.id.dateTimeInput);
-        websiteInput = view.findViewById(R.id.websiteInput);
-        reviewsInput = view.findViewById(R.id.reviewsInput);
-
         diningList = new ArrayList<>();
         diningAdapter = new DiningReservationAdapter(diningList);
         recyclerView.setAdapter(diningAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // FloatingActionButton to open the dialog for new reservation
+        FloatingActionButton fab = view.findViewById(R.id.fab_add_reservation);
+        fab.setOnClickListener(v -> showAddReservationDialog());
         sortButton.setOnClickListener(v -> sortReservations());
-        submitButton.setOnClickListener(v -> submitReservation());
 
         loadReservationsFromFirebase();
 
         return view;
+    }
+
+    /**
+     * Opens a dialog to add a new dining reservation.
+     *
+     * This method creates a dialog with input fields for location, date/time, website,
+     * and reviews. It also provides a "Submit" button within the dialog. When clicked,
+     * the button validates the input data, creates a new reservation if no duplicate
+     * exists, and adds the reservation to Firebase. The UI list updates upon successful addition.
+     *
+     * If there is an input error, such as an invalid date format or a duplicate entry,
+     * an appropriate error message is displayed.
+     */
+    private void showAddReservationDialog() {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View dialogView = inflater.inflate(R.layout.dialog_add_reservation, null);
+
+        EditText locationInput = dialogView.findViewById(R.id.locationInput);
+        EditText dateTimeInput = dialogView.findViewById(R.id.dateTimeInput);
+        EditText websiteInput = dialogView.findViewById(R.id.websiteInput);
+        EditText reviewsInput = dialogView.findViewById(R.id.reviewsInput);
+        Button submitButton = dialogView.findViewById(R.id.submitReservationButton);
+
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+                .setTitle("Add Reservation");
+
+        final androidx.appcompat.app.AlertDialog alertDialog = dialogBuilder.create();
+
+        // Add submit button logic inside the dialog
+        submitButton.setOnClickListener(v -> {
+            String location = locationInput.getText().toString().trim();
+            String dateTimeStr = dateTimeInput.getText().toString().trim();
+            String website = websiteInput.getText().toString().trim();
+            String reviews = reviewsInput.getText().toString().trim();
+
+            try {
+                Date dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(dateTimeStr);
+                DiningReservation newReservation = new DiningReservation(location, dateTime, website, reviews);
+
+                if (validateReservation(newReservation)) {
+                    DatabaseReference newReservationRef = databaseReference.push();
+                    newReservationRef.setValue(newReservation)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    diningList.add(newReservation);
+                                    diningAdapter.notifyDataSetChanged();
+                                    Toast.makeText(getContext(), "Reservation added.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    showError("Failed to add reservation to Firebase.");
+                                }
+                            });
+                }
+            } catch (ParseException e) {
+                showError("Invalid date/time format. Use yyyy-MM-dd HH:mm format.");
+            }
+        });
+
+        alertDialog.show();
     }
 
     /**
@@ -110,10 +161,8 @@ public class DiningFragment extends Fragment {
 
                     DiningReservation reservation = new DiningReservation(location, dateTime, website, reviews);
                     diningList.add(reservation);
-                    Log.d(TAG, "Added reservation: " + reservation);
                 }
 
-                Log.d(TAG, "Total reservations loaded: " + diningList.size());
                 diningAdapter.notifyDataSetChanged();
             }
 
@@ -133,44 +182,6 @@ public class DiningFragment extends Fragment {
         Collections.sort(diningList, (res1, res2) -> res2.getDateTime().compareTo(res1.getDateTime()));
         diningAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * Submits a new dining reservation by validating input fields, creating a new reservation,
-     * and adding it to the Firebase database if valid.
-     * Shows appropriate messages for success or failure.
-     */
-    private void submitReservation() {
-        String location = locationInput.getText().toString().trim();
-        String dateTimeStr = dateTimeInput.getText().toString().trim();
-        String website = websiteInput.getText().toString().trim();
-        String reviews = reviewsInput.getText().toString().trim();
-
-        Date dateTime;
-        try {
-            dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(dateTimeStr);
-        } catch (ParseException e) {
-            showError("Invalid date/time format. Use yyyy-MM-dd HH:mm format.");
-            return;
-        }
-
-        DiningReservation newReservation = new DiningReservation(location, dateTime, website, reviews);
-
-        if (validateReservation(newReservation)) {
-            DatabaseReference newReservationRef = databaseReference.push();
-            newReservationRef.setValue(newReservation)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            diningList.add(newReservation);
-                            diningAdapter.notifyDataSetChanged();
-                            clearInputFields();
-                            Toast.makeText(getContext(), "Reservation added.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            showError("Failed to add reservation to Firebase.");
-                        }
-                    });
-        }
-    }
-
 
     /**
      * Validates a new reservation by checking for duplicates in the current list of reservations.
@@ -198,15 +209,5 @@ public class DiningFragment extends Fragment {
      */
     private void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Clears all input fields used for creating a new reservation.
-     */
-    private void clearInputFields() {
-        locationInput.setText("");
-        dateTimeInput.setText("");
-        websiteInput.setText("");
-        reviewsInput.setText("");
     }
 }

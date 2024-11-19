@@ -4,29 +4,13 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <EditText
-        android:id="@+id/locationInput"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter Location" />
-
-    <EditText
-        android:id="@+id/dateTimeInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Date/Time (yyyy-MM-dd HH:mm)" />
-
-    <EditText
-        android:id="@+id/websiteInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Website" />
-
-    <EditText
-        android:id="@+id/reviewsInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Reviews" />
+        android:text="Dining"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/sortButton"
@@ -34,11 +18,13 @@
         android:layout_height="wrap_content"
         android:text="Sort by Date/Time" />
 
-    <Button
-        android:id="@+id/submitButton"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit Reservation" />
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -5,32 +5,32 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/edit_text_location"
+        android:id="@+id/locationInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Location" />
+        android:hint="Enter Location" />
 
     <EditText
-        android:id="@+id/edit_text_website"
+        android:id="@+id/dateTimeInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Website" />
+        android:hint="Enter Date/Time (yyyy-MM-dd HH:mm)" />
 
     <EditText
-        android:id="@+id/edit_text_time"
+        android:id="@+id/websiteInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Reservation Time" />
+        android:hint="Enter Website" />
 
     <EditText
-        android:id="@+id/edit_text_reviews"
+        android:id="@+id/reviewsInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Reviews (Optional)" />
+        android:hint="Enter Reviews" />
 
     <Button
-        android:id="@+id/button_save_reservation"
+        android:id="@+id/submitReservationButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="Submit" />
 </LinearLayout>
