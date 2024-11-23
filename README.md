@@ -2,6 +2,5 @@
 Vinay Gupta
 Dev Patel
 Viraj Kulkarni
-Justin Zheng
 Anish Cheraku
-
+Justin Zheng
