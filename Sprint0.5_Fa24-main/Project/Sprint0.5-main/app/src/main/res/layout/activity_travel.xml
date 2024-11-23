@@ -1,24 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Header TextView -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Travel"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="visible" /><!-- Add some margin for spacing -->
-
-    <!-- Add more UI elements for the Dining screen, e.g., RecyclerView or ListView -->
-    <ListView
-        android:id="@+id/recycler_view_dining"
+    <!-- RecyclerView for displaying travel posts -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTravelPosts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" /> <!-- This will fill the remaining space -->
+        android:layout_weight="1" />
 
+    <!-- Floating Action Button to add a post -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="Add Post" />
 </LinearLayout>

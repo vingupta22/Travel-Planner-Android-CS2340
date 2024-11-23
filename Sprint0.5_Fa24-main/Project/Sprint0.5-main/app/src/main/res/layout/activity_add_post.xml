@@ -1,0 +1,34 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etTripDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Trip Duration (e.g., 7 days)"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etDestinations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Destinations (e.g., Paris, Rome)"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes (e.g., tips, reflections)"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnSubmitPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Post" />
+</LinearLayout>
