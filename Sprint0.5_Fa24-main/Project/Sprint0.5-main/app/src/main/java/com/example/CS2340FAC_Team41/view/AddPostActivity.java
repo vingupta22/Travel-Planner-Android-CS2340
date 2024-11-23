@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.CS2340FAC_Team41.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 import model.TravelPost;
 
@@ -71,6 +73,7 @@ public class AddPostActivity extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance()
                 .getReference("CommunityTravelDatabase/posts");
         String postId = databaseReference.push().getKey();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         TravelPost post = new TravelPost(
                 postId,
@@ -81,8 +84,10 @@ public class AddPostActivity extends AppCompatActivity {
                 endDate,
                 accommodations,
                 diningReservations,
-                rating
+                rating,
+                userId // Include userId
         );
+
 
         databaseReference.child(postId).setValue(post).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

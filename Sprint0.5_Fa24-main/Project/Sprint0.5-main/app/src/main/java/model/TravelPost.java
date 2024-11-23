@@ -10,6 +10,7 @@ public class TravelPost {
     private String accommodations;
     private String diningReservations;
     private int rating;
+    private String userId;
 
     // Default constructor required for calls to DataSnapshot.getValue(TravelPost.class)
     public TravelPost() {
@@ -18,7 +19,7 @@ public class TravelPost {
     // Constructor with all fields
     public TravelPost(String postId, String tripDuration, String destinations, String notes,
                       String startDate, String endDate, String accommodations,
-                      String diningReservations, int rating) {
+                      String diningReservations, int rating, String userId) {
         this.postId = postId;
         this.tripDuration = tripDuration;
         this.destinations = destinations;
@@ -28,9 +29,10 @@ public class TravelPost {
         this.accommodations = accommodations;
         this.diningReservations = diningReservations;
         this.rating = rating;
+        this.userId = userId;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public String getPostId() {
         return postId;
     }
@@ -101,5 +103,13 @@ public class TravelPost {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

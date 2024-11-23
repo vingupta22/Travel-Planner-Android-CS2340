@@ -1,6 +1,5 @@
 package com.example.CS2340FAC_Team41.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,13 +19,18 @@ import android.widget.Toast;
 import com.example.CS2340FAC_Team41.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import model.TravelPost;
 
@@ -94,8 +98,8 @@ public class TravelCommunityFragment extends Fragment {
             String diningReservations = etDiningReservations.getText().toString().trim();
             String ratingStr = etRating.getText().toString().trim();
 
-            if (tripDuration.isEmpty() || destinations.isEmpty() || ratingStr.isEmpty()) {
-                Toast.makeText(getContext(), "Duration, destinations, and rating are required.", Toast.LENGTH_SHORT).show();
+            if (tripDuration.isEmpty() || destinations.isEmpty() || ratingStr.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+                Toast.makeText(getContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -111,6 +115,24 @@ public class TravelCommunityFragment extends Fragment {
                 return;
             }
 
+            // Validate date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            try {
+                Date start = dateFormat.parse(startDate);
+                Date end = dateFormat.parse(endDate);
+
+                if (start != null && end != null && start.after(end)) {
+                    Toast.makeText(getContext(), "Start date cannot be after end date.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (ParseException e) {
+                Toast.makeText(getContext(), "Invalid date format. Use YYYY-MM-DD.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Get the current user's ID
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
             // Create new post
             String postId = databaseReference.push().getKey();
             TravelPost newPost = new TravelPost(
@@ -122,8 +144,10 @@ public class TravelCommunityFragment extends Fragment {
                     endDate,
                     accommodations,
                     diningReservations,
-                    rating
+                    rating,
+                    userId
             );
+
 
             // Save to Firebase
             databaseReference.child(postId).setValue(newPost)
