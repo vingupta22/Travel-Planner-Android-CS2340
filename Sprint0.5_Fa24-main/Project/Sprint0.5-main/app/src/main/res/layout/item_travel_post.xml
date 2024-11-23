@@ -19,6 +19,36 @@
         android:text="Destinations" />
 
     <TextView
+        android:id="@+id/tvStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date" />
+
+    <TextView
+        android:id="@+id/tvEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date" />
+
+    <TextView
+        android:id="@+id/tvAccommodations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accommodations" />
+
+    <TextView
+        android:id="@+id/tvDiningReservations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dining Reservations" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating" />
+
+    <TextView
         android:id="@+id/tvNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
