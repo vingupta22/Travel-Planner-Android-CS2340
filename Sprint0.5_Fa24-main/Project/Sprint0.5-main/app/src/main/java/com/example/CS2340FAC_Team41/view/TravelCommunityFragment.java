@@ -66,9 +66,15 @@ public class TravelCommunityFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View dialogView = inflater.inflate(R.layout.dialog_add_post, null);
 
-        EditText etDuration = dialogView.findViewById(R.id.etTripDuration);
+        // Initialize dialog fields
+        EditText etTripDuration = dialogView.findViewById(R.id.etTripDuration);
         EditText etDestinations = dialogView.findViewById(R.id.etDestinations);
         EditText etNotes = dialogView.findViewById(R.id.etNotes);
+        EditText etStartDate = dialogView.findViewById(R.id.etStartDate);
+        EditText etEndDate = dialogView.findViewById(R.id.etEndDate);
+        EditText etAccommodations = dialogView.findViewById(R.id.etAccommodations);
+        EditText etDiningReservations = dialogView.findViewById(R.id.etDiningReservations);
+        EditText etRating = dialogView.findViewById(R.id.etRating);
         Button btnSubmit = dialogView.findViewById(R.id.btnSubmitPost);
 
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
@@ -78,23 +84,49 @@ public class TravelCommunityFragment extends Fragment {
         final androidx.appcompat.app.AlertDialog alertDialog = dialogBuilder.create();
 
         btnSubmit.setOnClickListener(v -> {
-            String duration = etDuration.getText().toString().trim();
+            // Get data from dialog fields
+            String tripDuration = etTripDuration.getText().toString().trim();
             String destinations = etDestinations.getText().toString().trim();
             String notes = etNotes.getText().toString().trim();
+            String startDate = etStartDate.getText().toString().trim();
+            String endDate = etEndDate.getText().toString().trim();
+            String accommodations = etAccommodations.getText().toString().trim();
+            String diningReservations = etDiningReservations.getText().toString().trim();
+            String ratingStr = etRating.getText().toString().trim();
 
-            if (duration.isEmpty() || destinations.isEmpty()) {
-                Toast.makeText(getContext(), "Duration and Destinations are required.", Toast.LENGTH_SHORT).show();
+            if (tripDuration.isEmpty() || destinations.isEmpty() || ratingStr.isEmpty()) {
+                Toast.makeText(getContext(), "Duration, destinations, and rating are required.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            int rating;
+            try {
+                rating = Integer.parseInt(ratingStr);
+                if (rating < 1 || rating > 5) {
+                    Toast.makeText(getContext(), "Rating must be between 1 and 5.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(getContext(), "Invalid rating value.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Create new post
+            String postId = databaseReference.push().getKey();
             TravelPost newPost = new TravelPost(
-                    databaseReference.push().getKey(),
-                    duration,
+                    postId,
+                    tripDuration,
                     destinations,
-                    notes
+                    notes,
+                    startDate,
+                    endDate,
+                    accommodations,
+                    diningReservations,
+                    rating
             );
 
-            databaseReference.child(newPost.getPostId()).setValue(newPost)
+            // Save to Firebase
+            databaseReference.child(postId).setValue(newPost)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             postList.add(newPost);
@@ -134,4 +166,3 @@ public class TravelCommunityFragment extends Fragment {
         });
     }
 }
-

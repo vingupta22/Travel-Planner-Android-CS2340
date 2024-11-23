@@ -23,6 +23,36 @@
         android:layout_height="wrap_content"
         android:hint="Notes or Tips" />
 
+    <EditText
+        android:id="@+id/etStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Start Date (e.g., YYYY-MM-DD)" />
+
+    <EditText
+        android:id="@+id/etEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Date (e.g., YYYY-MM-DD)" />
+
+    <EditText
+        android:id="@+id/etAccommodations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Accommodations" />
+
+    <EditText
+        android:id="@+id/etDiningReservations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Dining Reservations" />
+
+    <EditText
+        android:id="@+id/etRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rating (1-5)" />
+
     <Button
         android:id="@+id/btnSubmitPost"
         android:layout_width="match_parent"
