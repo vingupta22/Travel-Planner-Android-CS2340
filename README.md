@@ -1,6 +1,6 @@
 # CS2340FAC_Team41
-Vinay Gupta
 Dev Patel
+Vinay Gupta
 Viraj Kulkarni
 Anish Cheraku
 Justin Zheng
