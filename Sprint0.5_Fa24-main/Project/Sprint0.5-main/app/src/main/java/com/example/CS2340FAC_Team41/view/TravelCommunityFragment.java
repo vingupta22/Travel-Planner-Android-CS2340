@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import model.TravelPost;
@@ -188,5 +189,13 @@ public class TravelCommunityFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to load data.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public ArrayList<TravelPost> getPostList() {
+        return postList;
+    }
+
+    public void setPostList(ArrayList<TravelPost> newList) {
+        postList = newList;
     }
 }
