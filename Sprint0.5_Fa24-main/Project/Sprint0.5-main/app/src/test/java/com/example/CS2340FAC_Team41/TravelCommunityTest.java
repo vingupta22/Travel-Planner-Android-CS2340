@@ -132,19 +132,15 @@ public class TravelCommunityTest {
     // Test 10: Ensure post list is updated after adding a post, Justin
     @Test
     public void testPostListIsUpdated() {
-        // Arrange: Create a real list for testing
         ArrayList<TravelPost> realPostList = new ArrayList<>();
         fragment.setPostList(realPostList);
 
-        // Create a dummy TravelPost
         TravelPost post = new TravelPost("123", "5 days", "Paris", "Notes", "2024-11-01",
                 "2024-11-05", "Hotel", "Restaurant", 5, "user1");
 
-        // Act: Add the post to the list
         int initialSize = fragment.getPostList().size();
         fragment.getPostList().add(post);
 
-        // Assert: Check if the list size increased by 1
         assertEquals(initialSize + 1, fragment.getPostList().size());
         assertTrue(fragment.getPostList().contains(post));
     }
