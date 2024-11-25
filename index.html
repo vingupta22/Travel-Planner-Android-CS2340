@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WanderSync: A Collaborative Travel Management System Showcase">
+  <title>WanderSync Showcase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>WanderSync</h1>
+    <p>A Collaborative Travel Management System</p>
+  </header>
+
+  <main>
+    <!-- Introduction Section -->
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>WanderSync simplifies creating and managing travel itineraries for solo and group travel. With real-time collaboration, intuitive features, and a user-friendly design, the app ensures seamless planning, leaving you free to enjoy the journey.</p>
+    </section>
+
+    <!-- Design & Architecture Section -->
+    <section id="design">
+      <h2>Design & Architecture</h2>
+      <p>The app follows a modular architecture, integrating Firebase for real-time database management and user authentication. Key design patterns include:</p>
+      <ul>
+        <li><b>Observer Pattern:</b> Used to dynamically update the UI when changes occur in the database.</li>
+        <li><b>Singleton Pattern:</b> Ensures a single instance of the Firebase database reference is used throughout the app.</li>
+        <li><b>Strategy Pattern:</b> Implements flexible layout management for the RecyclerView.</li>
+      </ul>
+      <div class="images">
+        <img src="assets/diagrams/class_diagram.png" alt="Class Diagram">
+        <img src="assets/diagrams/sequence_diagram.png" alt="Sequence Diagram">
+      </div>
+    </section>
+
+    <!-- User Interface Section -->
+    <section id="ui">
+      <h2>User Interface</h2>
+      <p>Take a tour of the WanderSync app:</p>
+      <div class="images">
+        <img src="assets/screenshots/login.png" alt="Login Screen">
+        <img src="assets/screenshots/travel_community.png" alt="Travel Community Screen">
+        <img src="assets/screenshots/add_post.png" alt="Add Travel Post Screen">
+      </div>
+    </section>
+
+    <!-- Functionality Section -->
+    <section id="functionality">
+      <h2>Functionality</h2>
+      <p>Watch the app in action!</p>
+      <a href="https://www.youtube.com/watch?v=dummy_link" target="_blank">View Video Demonstration</a>
+    </section>
+
+    <!-- Conclusions Section -->
+    <section id="conclusions">
+      <h2>Conclusions and Reflections</h2>
+      <p>Developing WanderSync has been a rewarding journey. The project strengthened my understanding of software engineering principles, from implementing design patterns to solving real-world challenges like database synchronization. Collaborating with my team enhanced my problem-solving skills and provided valuable insights into creating scalable, user-focused applications.</p>
+    </section>
+
+    <!-- Contributors Section -->
+    <section id="contributors">
+      <h2>Contributors</h2>
+      <ul>
+        <li><b>Your Name:</b> Implemented TravelCommunityFragment, AddPostActivity, and Firebase integration.</li>
+        <li><b>Team Member 2:</b> Designed the app's UI and managed RecyclerView adapters.</li>
+        <li><b>Team Member 3:</b> Developed unit tests and backend logic for collaborative trip editing.</li>
+        <li><b>Team Member 4:</b> Created and deployed this website to GitHub Pages.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 WanderSync Showcase</p>
+  </footer>
+</body>
+</html>
