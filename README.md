@@ -16,7 +16,7 @@ Implements flexible layout management for the RecyclerView.
 
 Watch the functionality demonstration here.
 
-[![Watch the demo here!]((https://www.youtube.com/watch?v=jzjbAOTC0hY)/0.jpg)]((https://www.youtube.com/watch?v=jzjbAOTC0hY))
+[![Watch the demo here!]([https://img.youtube.com/vi/YxRf4Va3rPQ/0.jpg](https://www.youtube.com/watch?v=jzjbAOTC0hY))]([https://www.youtube.com/watch?v=YxRf4Va3rPQ](https://www.youtube.com/watch?v=jzjbAOTC0hY))
 
 Conclusions and Reflections
 Developing WanderSync has been a rewarding journey. The project strengthened my understanding of software engineering principles, from implementing design patterns to solving real-world challenges like database synchronization. Collaborating with my team enhanced my problem-solving skills and provided valuable insights into creating scalable, user-focused applications.
